@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- === 1. GOOGLE SEARCH CONSOLE === -->
+    <!-- Zde vložte kód, který získáte na search.google.com (metoda HTML Tag) -->
+    <!-- Příklad: <meta name="google-site-verification" content="kód_od_google" /> -->
+    
+    
+    <!-- === 2. GOOGLE ANALYTICS (GA4) === -->
+    <!-- Tento kód měří návštěvnost. Jen nahraďte 'G-VÁŠ_KÓD' vaším ID. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VÁŠ_KÓD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // ZDE NAHRAĎTE 'G-VÁŠ_KÓD' SVÝM ID (např. G-X1Y2Z3)
+      gtag('config', 'G-VÁŠ_KÓD');
+    </script>
+
+
+    <!-- === SEO: ZÁKLADNÍ POPIS === -->
+    <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu. Dojemný dárek k výročí, svatbě nebo narozeninám.">
+    <meta name="keywords" content="píseň na míru, originální dárek, romantická píseň, skladba na zakázku, dárek k výročí, svatební píseň">
+    <meta name="author" content="RomantickáPísnička.cz">
+
+    <!-- === SEO: OPEN GRAPH (Facebook, LinkedIn, WhatsApp) === -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.romantickapisnicka.cz/">
+    <meta property="og:title" content="Darujte píseň, která řekne vše ❤️ | RomantickáPísnička.cz">
+    <meta property="og:description" content="Složíme originální hudbu a text z vašeho příběhu. Poslechněte si ukázku a nechte si vytvořit nezapomenutelný dárek.">
+    <!-- Až budete mít obrázek, nahraďte tento odkaz -->
+    <meta property="og:image" content="https://www.romantickapisnicka.cz/social-share-placeholder.jpg"> 
+
+    <!-- === FAVICON (Zlaté srdce) === -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
+
+    <!-- === LLM & GOOGLE OPTIMALIZACE (Schema.org) === -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Romantická Píseň na míru",
+      "description": "Kompletní produkce originální písně na klíč. Zahrnuje text, hudbu a zpěv na základě vašeho příběhu.",
+      "provider": {
+        "@type": "Organization",
+        "name": "RomantickáPísnička.cz",
+        "url": "https://www.romantickapisnicka.cz"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CZK",
+        "price": "2990",
+        "priceValidUntil": "2026-12-31",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "50"
+      }
+    }
+    </script>
+
+    <title>Romantická Písnička | Prémiová hudba na míru</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #f4d08b;       
+            --pink: #ff9bb5;       
+            --glass-bg: rgba(14, 28, 54, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --bg-color-fallback: #050a14; 
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            background-color: var(--bg-color-fallback);
+            scroll-behavior: smooth;
+        }
+
+        /* --- POZADÍ --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            gap: 40px;
+            min-height: 100vh;
+            background: url('bckg wide.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                background: url('bckg portrait.png') no-repeat top center;
+                background-size: 100% auto; 
+                background-attachment: scroll; 
+                padding-top: 140px; 
+                padding-bottom: 60px;
+            }
+        }
+
+        /* --- KARTY --- */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background-color: var(--glass-bg); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 35px;
+            text-align: center;
+        }
+
+        /* --- VIDEO (Responzivní) --- */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(244, 208, 139, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            background: #000;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- TYPOGRAFIE --- */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            color: #f0f0f0;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .highlight {
+            color: var(--pink);
+            font-weight: 700;
+        }
+
+        /* --- FORMULÁŘ --- */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .optional {
+            font-size: 0.65rem;
+            color: #ccc;
+            text-transform: none;
+            font-weight: 400;
+            float: right;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(244, 208, 139, 0.3);
+            background: rgba(0, 0, 0, 0.4); 
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 8px rgba(244, 208, 139, 0.3);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f4d08b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 10px auto;
+        }
+        select option { background-color: #0e1c36; color: white; }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--gold), #c99f50);
+            color: #0e1c36;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(244, 208, 139, 0.4);
+        }
+
+        .privacy-note {
+            font-size: 0.7rem;
+            margin-top: 12px;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* --- FAQ / KONTAKT --- */
+        .faq-section {
+            text-align: left;
+        }
+
+        details {
+            background: rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(244, 208, 139, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: var(--gold);
+        }
+
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: '+';
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details p, details ul {
+            padding: 0 15px 15px 15px;
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        details ul { padding-left: 35px; }
+        details li { margin-bottom: 5px; }
+
+        .upsell-tag {
+            background-color: var(--gold);
+            color: #0e1c36;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* --- SOCIAL --- */
+        .social-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            color: var(--gold);
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            color: var(--pink);
+            transform: scale(1.2);
+        }
+        
+        .footer {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* SEO Footer */
+        .seo-footer {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            line-height: 1.4;
+        }
+        .seo-footer strong { color: rgba(255,255,255,0.6); }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2rem; }
+            .glass-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        
+        <!-- KARTA 1: FORMULÁŘ -->
+        <div class="glass-card">
+            <h1>Vaše píseň lásky</h1>
+            <p class="subtitle">
+                Originální dárek z vašich vzpomínek. <br>
+                <span class="highlight">Proměníme váš příběh v hudbu.</span>
+            </p>
+
+            <form action="https://formspree.io/f/xgoaengz" method="POST">
+                
+                <div class="form-group">
+                    <label>Váš E-mail <span class="optional">Povinné</span></label>
+                    <input type="email" name="email" placeholder="vas@email.cz" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Příběh písně <span class="optional">Doporučeno</span></label>
+                    <textarea name="story" rows="3" placeholder="O čem to má být? (např. o našem psovi Benovi, výročí v Římě, miluje kávu...)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Pro koho? <span class="optional">Volitelné</span></label>
+                    <input type="text" name="recipient" placeholder="Např. Pro manžela Tomáše">
+                </div>
+                
+                <div class="form-group">
+                    <label>Od koho? <span class="optional">Volitelné</span></label>
+                    <input type="text" name="sender" placeholder="Např. Od manželky Anny">
+                </div>
+
+                <div class="form-group">
+                    <label>Žánr / Nálada</label>
+                    <select name="genre">
+                        <option value="not_specified">Nechte to na nás (Doporučeno)</option>
+                        <option value="romantic_pop">Romantický Pop</option>
+                        <option value="acoustic">Akustická balada (Kytara)</option>
+                        <option value="piano">Klavír a zpěv</option>
+                        <option value="cinematic">Filmový orchestr</option>
+                        <option value="other">Jiné - specifikujte v Příbehu písně</option>
+                    </select>
+                </div>
+
+                <button type="submit">Získat nezávaznou ukázku</button>
+                
+                <div class="privacy-note">
+                    Odesláním souhlasíte se zpracováním pro účely vytvoření dema.
+                </div>
+            </form>
+
+            <div class="social-links">
+                <!-- Doplňte si své odkazy -->
+                <a href="#" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+
+            <div class="footer">
+                © 2026 RomantickáPísnička.cz<br>
+                info@romantickapisnicka.cz
+            </div>
+        </div>
+
+        <!-- KARTA 2: UKÁZKA & FAQ -->
+        <div class="glass-card faq-section">
+            
+            <h2>Poslechněte si ukázku</h2>
+            <div class="video-container">
+                <!-- ZDE JE OPRAVENÉ VIDEO -->
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://youtu.be/hRBAfbe2cQQ" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <h2>Časté dotazy</h2>
+            
+            <details>
+                <summary>Co přesně dostanu?</summary>
+                <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru.</p>
+            </details>
+
+            <details>
+                <summary>Jaký je postup?</summary>
+                <p>
+                    1. Vyplníte formulář výše.<br>
+                    2. Připravíme demo verzi textu a melodie.<br>
+                    3. Po vašem schválení a úhradě píseň nahrajeme.<br>
+                    4. Hotovou skladbu dostanete e-mailem.
+                </p>
+            </details>
+
+            <details>
+                <summary>Kolik to stojí?</summary>
+                <p>Cena se odvíjí od náročnosti a délky. Základní balíček začíná na [DOPLŇ CENU], přesnou kalkulaci vám pošleme e-mailem. Nabízíme i levnější verše pro přání.</p>
+            </details>
+
+            <details>
+                <summary>Doplňkové služby <span class="upsell-tag">TIP</span></summary>
+                <p>
+                    • Video slideshow z fotek<br>
+                    • Expresní dodání (do 48h)<br>
+                    • Karaoke verze (bez zpěvu)<br>
+                    • Tištěný text v rámečku
+                </p>
+            </details>
+
+            <!-- SEO TEXT -->
+            <div class="seo-footer">
+                <p>
+                    <strong>Hledáte originální dárek?</strong> RomantickáPísnička.cz nabízí unikátní řešení pro výročí, svatby a narozeniny. 
+                    Místo neosobních dárků vytvoříme píseň, která vypráví váš příběh. Ideální pro: 
+                    <em>vyznání lásky, žádost o ruku, omluvu, poděkování rodičům.</em>
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
