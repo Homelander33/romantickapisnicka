@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantická Písnička | Prémiová hudba na míru</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #f4d08b;       
+            --pink: #ff9bb5;       
+            /* Změna: Mnohem průhlednější modrá pro efekt skla */
+            --glass-bg: rgba(14, 28, 54, 0.65); 
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            /* Důležité: Umožní scrollování na mobilech, pokud je formulář dlouhý */
+            overflow-x: hidden; 
+        }
+
+        /* --- POZADÍ --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;     /* Vertikálně na střed (desktop) */
+            justify-content: center; /* Horizontálně na střed */
+            padding: 20px;
+            
+            /* Desktop pozadí */
+            background: url('bckg wide.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed; /* Parallax efekt */
+        }
+
+        /* Tmavší viněta přes celé pozadí, aby text lépe svítil */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+
+        /* --- MOBILNÍ POZADÍ --- */
+        @media (max-width: 768px) {
+            .hero {
+                /* Na mobilu zarovnáme formulář trochu níž, ne přesně na střed, aby byla vidět horní část obrázku */
+                align-items: flex-start; 
+                padding-top: 120px; /* Odstup od vrchu - prostor pro měsíc/nápis na obrázku */
+                padding-bottom: 50px;
+                
+                background: url('bckg portrait.png') no-repeat center top;
+                background-size: cover;
+                background-attachment: scroll; /* Na mobilu lepší scroll */
+            }
+        }
+
+        /* --- KARTA FORMULÁŘE (SKLO) --- */
+        .card {
+            position: relative;
+            z-index: 10;
+            
+            /* Magie mléčného skla */
+            background-color: var(--glass-bg); 
+            backdrop-filter: blur(12px); /* Toto rozmaže obrázek POD formulářem -> čitelnost textu */
+            -webkit-backdrop-filter: blur(12px); /* Pro Safari */
+            
+            padding: 40px 35px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Světlejší okraj pro skleněný efekt */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* --- TEXTY --- */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        p.subtitle {
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            color: #f0f0f0;
+            line-height: 1.5;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* Stín pod textem pro čitelnost na skle */
+        }
+
+        .highlight {
+            color: var(--pink);
+            font-weight: 700;
+        }
+
+        /* --- FORMULÁŘ --- */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .optional {
+            font-size: 0.7rem;
+            color: #ccc;
+            text-transform: none;
+            font-weight: 400;
+            float: right;
+        }
+
+        /* Pole formuláře - tmavší a průhledná pro kontrast */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(244, 208, 139, 0.3); /* Jemně zlatý okraj */
+            
+            /* Tmavé poloprůhledné pozadí políček, aby bílý text byl dobře vidět */
+            background: rgba(0, 0, 0, 0.5); 
+            
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 8px rgba(244, 208, 139, 0.3);
+        }
+
+        /* Select šipka */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f4d08b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 10px auto;
+        }
+        select option { background-color: #0e1c36; }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--gold), #c99f50);
+            color: #0e1c36;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(244, 208, 139, 0.3);
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-shadow: 0 1px 2px black;
+        }
+        
+        .privacy-note {
+            font-size: 0.7rem;
+            margin-top: 8px;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* --- MODIFIKACE PRO MALÉ DISPLEJE --- */
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2rem; }
+            .card { padding: 30px 20px; margin: 0 10px; }
+            /* Zmenšení písma v políčkách, aby se formulář vešel na obrazovku lépe */
+            input, textarea, select { padding: 10px; font-size: 0.9rem; }
+            .form-group { margin-bottom: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="card">
+            <h1>Vaše píseň lásky</h1>
+            <p class="subtitle">
+                Originální dárek z vašich vzpomínek. <br>
+                <span class="highlight">Proměníme váš příběh v hudbu.</span>
+            </p>
+
+            
+            <form action="https://formspree.io/f/xgoaengz" method="POST">
+                
+                <div class="form-group">
+                    <label>Váš E-mail <span class="optional">Povinné</span></label>
+                    <input type="email" name="email" placeholder="vas@email.cz" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Příběh písně <span class="optional">Doporučeno</span></label>
+                    <textarea name="story" rows="3" placeholder="O čem to má být? (např. o našem psovi Benovi, výročí v Římě, miluje kávu...)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Pro koho? <span class="optional">Volitelné</span></label>
+                    <input type="text" name="recipient" placeholder="Např. Pro manžela Tomáše">
+                </div>
+                <div class="form-group">
+                    <label>Od koho? <span class="optional">Volitelné</span></label>
+                    <input type="text" name="sender" placeholder="Např. Od manželky Anny">
+                </div>
+
+                <div class="form-group">
+                    <label>Žánr / Nálada <span class="optional">Volitelné</span></label>
+                    <select name="genre">
+                        <option value="not_specified">Nechte to na nás (Doporučeno)</option>
+                        <option value="romantic_pop">Romantický Pop</option>
+                        <option value="acoustic">Akustická balada</option>
+                        <option value="piano">Klavír a zpěv</option>
+                        <option value="cinematic">Filmový orchestr</option>
+                        <!-- Nová možnost -->
+                        <option value="other">Jiné - specifikujte v Příbehu písně</option>
+                    </select>
+                </div>
+
+                <button type="submit">Získat nezávaznou ukázku</button>
+                
+                <div class="privacy-note">
+                    Odesláním souhlasíte se zpracováním pro účely dema.
+                </div>
+            </form>
+
+            <div class="footer">
+                © 2026 RomantickáPísnička.cz<br>
+                info@romantickapisnicka.cz
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
