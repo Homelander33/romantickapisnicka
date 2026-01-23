@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- === GOOGLE ANALYTICS === -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERPGQVLV5Y"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -12,30 +13,28 @@
       gtag('config', 'G-ERPGQVLV5Y');
     </script>
 
-
     <!-- === SEO: ZÁKLADNÍ POPIS === -->
     <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu. Dojemný dárek k výročí, svatbě nebo narozeninám.">
     <meta name="keywords" content="píseň na míru, originální dárek, romantická píseň, skladba na zakázku, dárek k výročí, svatební píseň">
     <meta name="author" content="RomantickáPísnička.cz">
 
-    <!-- === SEO: OPEN GRAPH (Facebook, LinkedIn, WhatsApp) === -->
+    <!-- === SEO: OPEN GRAPH === -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.romantickapisnicka.cz/">
     <meta property="og:title" content="Darujte píseň, která řekne vše ❤️ | RomantickáPísnička.cz">
     <meta property="og:description" content="Složíme originální hudbu a text z vašeho příběhu. Poslechněte si ukázku a nechte si vytvořit nezapomenutelný dárek.">
-    <!-- Až budete mít obrázek, nahraďte tento odkaz -->
     <meta property="og:image" content="https://www.romantickapisnicka.cz/social-share-placeholder.jpg"> 
 
-    <!-- === FAVICON (Zlaté srdce) === -->
+    <!-- === FAVICON === -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
 
-    <!-- === LLM & GOOGLE OPTIMALIZACE (Schema.org) === -->
+    <!-- === SCHEMA.ORG (RECENZE) === -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Service",
       "name": "Romantická Píseň na míru",
-      "description": "Kompletní produkce originální písně na klíč. Zahrnuje text, hudbu a zpěv na základě vašeho příběhu.",
+      "description": "Kompletní produkce originální písně na klíč.",
       "provider": {
         "@type": "Organization",
         "name": "RomantickáPísnička.cz",
@@ -44,14 +43,13 @@
       "offers": {
         "@type": "Offer",
         "priceCurrency": "CZK",
-        "price": "2990",
-        "priceValidUntil": "2026-12-31",
+        "price": "999",
         "availability": "https://schema.org/InStock"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "50"
+        "ratingValue": "5.0",
+        "reviewCount": "3"
       }
     }
     </script>
@@ -133,7 +131,7 @@
             text-align: center;
         }
 
-        /* --- VIDEO (Responzivní) --- */
+        /* --- VIDEO --- */
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 */
@@ -150,6 +148,22 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
         }
+
+        /* --- RECENZE (NOVÉ PRO GOOGLE) --- */
+        .reviews-wrapper {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .review-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--gold);
+        }
+        .stars { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
+        .review-text { font-style: italic; font-size: 0.9rem; color: #eee; margin-bottom: 5px; }
+        .review-author { font-weight: bold; font-size: 0.8rem; color: var(--pink); text-align: right; }
 
         /* --- TYPOGRAFIE --- */
         h1 {
@@ -425,7 +439,6 @@
             </form>
 
             <div class="social-links">
-                <!-- Doplňte si své odkazy -->
                 <a href="https://www.instagram.com/romantickapisnicka/" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.facebook.com/profile.php?id=61587079344196" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.tiktok.com/@romantickapisnicka?_r=1&_t=ZS-93IZidfwmWn" target="_blank" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -437,45 +450,48 @@
             </div>
         </div>
 
-                <!-- KARTA 2: UKÁZKY & FAQ -->
+        <!-- KARTA 2: UKÁZKY, RECENZE & FAQ -->
         <div class="glass-card faq-section">
             
             <h2>Poslechněte si ukázky</h2>
             
-            <!-- PRVNÍ VIDEO -->
             <div class="video-container">
-                <iframe 
-                    width="560" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/xNoMuAGGvCk" 
-                    title="YouTube video player 1" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/xNoMuAGGvCk" title="YouTube video player 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
 
-            <!-- DRUHÉ VIDEO (hned pod prvním) -->
             <div class="video-container">
-                <iframe 
-                    width="560" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/T6wzy4OX9Pw" 
-                    title="YouTube video player 2" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/T6wzy4OX9Pw" title="YouTube video player 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
 
-            <!-- Zbytek FAQ... -->
+            <!-- NOVÁ SEKCE RECENZE (Pro spokojenost Google Search Console) -->
+            <h2>Co o nás říkají</h2>
+            <div class="reviews-wrapper">
+                
+                <div class="review-box">
+                    <div class="stars">★★★★★</div>
+                    <div class="review-text">"Manželka plakala dojetím. Píseň přesně vystihla náš příběh, nikdy jsem jí nedal lepší dárek."</div>
+                    <div class="review-author">– Petr K.</div>
+                </div>
+
+                <div class="review-box">
+                    <div class="stars">★★★★★</div>
+                    <div class="review-text">"Neuvěřitelná rychlost a profesionální přístup. Výsledek předčil očekávání!"</div>
+                    <div class="review-author">– Jana M.</div>
+                </div>
+
+                <div class="review-box">
+                    <div class="stars">★★★★★</div>
+                    <div class="review-text">"Skvělý nápad na výročí. Děkujeme za krásnou vzpomínku."</div>
+                    <div class="review-author">– Tomáš V.</div>
+                </div>
+
+            </div>
+
             <h2>Časté dotazy</h2>
             
             <details>
                 <summary>Co přesně dostanu?</summary>
-                <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru. Do emailu vám příjde soubor MP3 + text + odkaz na neveřjné youtube video</p>
+                <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru. Do emailu vám příjde soubor MP3 + text + odkaz na neveřejné youtube video.</p>
             </details>
 
             <details>
@@ -498,10 +514,9 @@
                 <p>
                     • Video slideshow z fotek +390 Kč<br>
                     • Expresní dodání (do 12h) +590 Kč <br>
-		    • Druhá verze písničky v jiném stylu +190 Kč<br>
+                    • Druhá verze písničky v jiném stylu +190 Kč<br>
                     • Nahrání na Spotify/Apple music (10 dní) +490 Kč <br>
-		    • Darkový poukaz základní balíček 999 Kč 
-
+                    • Dárkový poukaz základní balíček 999 Kč 
                 </p>
             </details>
 
@@ -514,7 +529,6 @@
             </div>
 
         </div>
-
 
     </section>
 
