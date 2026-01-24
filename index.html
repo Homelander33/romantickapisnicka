@@ -137,6 +137,28 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- SUCCESS MESSAGE & LOADING --- */
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+        .success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; }
+        
+        .loading-spinner {
+            display: none;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left: 4px solid var(--gold);
+            border-radius: 50%;
+            width: 30px; height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* --- VIDEO, RECENZE, UPSELL --- */
         .video-container {
             position: relative;
@@ -200,15 +222,9 @@
         }
         input:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(0,0,0,0.6); }
 
-        /* CHECKBOX CUSTOM */
         .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.75rem;
-            color: #ccc;
-            margin-top: 10px;
-            text-align: left;
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.75rem; color: #ccc; margin-top: 10px; text-align: left;
         }
         .checkbox-group input { width: auto; margin-top: 3px; }
         
@@ -283,87 +299,104 @@
         
         <!-- KARTA 1: PŘEPÍNACÍ FORMULÁŘ -->
         <div class="glass-card">
-            <h1>Vaše píseň lásky</h1>
-            <p class="subtitle">
-                Originální dárek, který dojme k slzám. <br>
-                <span class="highlight">Hudba a text z vašeho příběhu.</span>
-            </p>
-
-            <!-- TABS -->
-            <div class="tabs">
-                <button class="tab-btn active" onclick="openTab('order')">🎵 Chci píseň hned</button>
-                <button class="tab-btn" onclick="openTab('remind')">⏰ Připomenout výročí</button>
-            </div>
-
-            <!-- TAB 1: OBJEDNÁVKA -->
-            <div id="order" class="tab-content active">
-                <form action="https://formspree.io/f/xgoaengz" method="POST">
-                    <input type="hidden" name="typ_formulare" value="Poptavka_Pisne">
-                    
-                    <div class="form-group">
-                        <label>Váš E-mail <span class="optional">Povinné</span></label>
-                        <input type="email" name="email" placeholder="vas@email.cz" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Příběh písně</label>
-                        <textarea name="story" rows="4" placeholder="1. Pro koho (Jméno, Vztah)&#10;2. Od koho&#10;3. O čem to má být (společné zážitky, co má rád/a, výročí...)" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Žánr / Nálada</label>
-                        <select name="genre">
-                            <option value="not_specified">Nechte to na nás (Nejoblíbenější)</option>
-                            <option value="romantic_pop">Romantický Pop</option>
-                            <option value="acoustic">Akustická balada (Kytara)</option>
-                            <option value="piano">Klavír a zpěv</option>
-                            <option value="cinematic">Filmový orchestr</option>
-                            <option value="other">Jiné - specifikujte v Příběhu písně</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="cta-button">Získat ukázku zdarma</button>
-                    
-                    <div class="privacy-note">
-                        Odesláním souhlasíte se <span class="privacy-link" onclick="openModal('privacyModal')">Zpracováním osobních údajů</span> pro účely vyřízení poptávky.
-                    </div>
-                </form>
-            </div>
-
-            <!-- TAB 2: PŘIPOMÍNKA (Lead Magnet) -->
-            <div id="remind" class="tab-content">
-                <p style="font-size:0.9rem; margin-bottom:15px;">
-                    Teď není ten správný čas? Nevadí. <br>
-                    <strong>Dáme vám vědět týden předem</strong>, abyste stihli dárek vyřešit v klidu.
+            
+            <!-- OBSAH KARTY (FORMULÁŘE) - ZMIZÍ PO ODESLÁNÍ -->
+            <div id="form-container-main">
+                <h1>Vaše píseň lásky</h1>
+                <p class="subtitle">
+                    Originální dárek, který dojme k slzám. <br>
+                    <span class="highlight">Hudba a text z vašeho příběhu.</span>
                 </p>
-                <form action="https://formspree.io/f/xgoaengz" method="POST">
-                    <input type="hidden" name="typ_formulare" value="Pripominka_Vyroci">
 
-                    <div class="form-group">
-                        <label>Kdy je událost? <span class="optional">Datum výročí/narozenin</span></label>
-                        <input type="date" name="datum_udalosti" required>
-                    </div>
+                <!-- TABS -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab('order')">🎵 Chci píseň hned</button>
+                    <button class="tab-btn" onclick="openTab('remind')">⏰ Připomenout výročí</button>
+                </div>
 
-                    <div class="form-group">
-                        <label>Co slavíte? <span class="optional">Např. Výročí svatby</span></label>
-                        <input type="text" name="nazev_udalosti" placeholder="Výročí, Narozeniny...">
-                    </div>
+                <!-- TAB 1: OBJEDNÁVKA -->
+                <div id="order" class="tab-content active">
+                    <form id="orderForm" action="https://formspree.io/f/xgoaengz" method="POST">
+                        <input type="hidden" name="typ_formulare" value="Poptavka_Pisne">
+                        
+                        <div class="form-group">
+                            <label>Váš E-mail <span class="optional">Povinné</span></label>
+                            <input type="email" name="email" placeholder="vas@email.cz" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Váš E-mail</label>
-                        <input type="email" name="email" placeholder="vas@email.cz" required>
-                    </div>
+                        <div class="form-group">
+                            <label>Příběh písně</label>
+                            <textarea name="story" rows="4" placeholder="1. Pro koho (Jméno, Vztah)&#10;2. Od koho&#10;3. O čem to má být (společné zážitky, co má rád/a, výročí...)" required></textarea>
+                        </div>
 
-                    <div class="checkbox-group">
-                        <input type="checkbox" name="marketing_souhlas" required>
-                        <span>Souhlasím se zasláním připomínky a občasných slevových akcí (newsletter).</span>
-                    </div>
+                        <div class="form-group">
+                            <label>Žánr / Nálada</label>
+                            <select name="genre">
+                                <option value="not_specified">Nechte to na nás (Nejoblíbenější)</option>
+                                <option value="romantic_pop">Romantický Pop</option>
+                                <option value="acoustic">Akustická balada (Kytara)</option>
+                                <option value="piano">Klavír a zpěv</option>
+                                <option value="cinematic">Filmový orchestr</option>
+                                <option value="other">Jiné - specifikujte v Příběhu písně</option>
+                            </select>
+                        </div>
 
-                    <button type="submit" class="cta-button" style="background: linear-gradient(135deg, #ddd, #bbb);">Nastavit připomínku</button>
-                </form>
+                        <button type="submit" class="cta-button">Získat ukázku zdarma</button>
+                        <div class="loading-spinner" id="spinner-order"></div>
+                        
+                        <div class="privacy-note">
+                            Odesláním souhlasíte se <span class="privacy-link" onclick="openModal('privacyModal')">Zpracováním osobních údajů</span>.
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB 2: PŘIPOMÍNKA (Lead Magnet) -->
+                <div id="remind" class="tab-content">
+                    <p style="font-size:0.9rem; margin-bottom:15px;">
+                        Teď není ten správný čas? Nevadí. <br>
+                        <strong>Dáme vám vědět týden předem</strong>, abyste stihli dárek vyřešit v klidu.
+                    </p>
+                    <form id="remindForm" action="https://formspree.io/f/xgoaengz" method="POST">
+                        <input type="hidden" name="typ_formulare" value="Pripominka_Vyroci">
+
+                        <div class="form-group">
+                            <label>Kdy je událost? <span class="optional">Datum výročí/narozenin</span></label>
+                            <input type="date" name="datum_udalosti" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Co slavíte? <span class="optional">Např. Výročí svatby</span></label>
+                            <input type="text" name="nazev_udalosti" placeholder="Výročí, Narozeniny...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Váš E-mail</label>
+                            <input type="email" name="email" placeholder="vas@email.cz" required>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="marketing_souhlas" required>
+                            <span>Souhlasím se zasláním připomínky a občasných slevových akcí (newsletter).</span>
+                        </div>
+
+                        <button type="submit" class="cta-button" style="background: linear-gradient(135deg, #ddd, #bbb);">Nastavit připomínku</button>
+                        <div class="loading-spinner" id="spinner-remind"></div>
+                    </form>
+                </div>
+            </div> <!-- End form-container-main -->
+
+            <!-- ÚSPĚŠNÁ ZPRÁVA (ZOBRAZÍ SE PO ODESLÁNÍ) -->
+            <div id="success-message-main" class="success-message">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2 style="margin-top:0;">Skvělá práce!</h2>
+                <p style="font-size: 1.1rem;">Vše jsme přijali v pořádku.</p>
+                <p style="color: #ccc; font-size: 0.9rem; margin-top: 10px;">
+                    Zkontrolujte prosím svůj e-mail. <br>
+                    Brzy se vám ozveme s první ukázkou nebo potvrzením připomínky.
+                </p>
             </div>
 
-            <!-- SOCIAL LINKS (FB Returned) -->
+            <!-- SOCIAL LINKS -->
             <div class="social-links" style="margin-top: 20px; font-size: 1.4rem;">
                 <a href="https://www.instagram.com/romantickapisnicka/" target="_blank" style="color:var(--gold); margin:0 12px;"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.facebook.com/profile.php?id=61587079344196" target="_blank" style="color:var(--gold); margin:0 12px;"><i class="fab fa-facebook"></i></a>
@@ -417,7 +450,7 @@
                 <summary>Jaký je postup?</summary>
                 <p>
                     1. Vyplníte formulář výše.<br>
-                    2. Připravíme vám krátkou verzi písničky do 24h.<br>
+                    2. Připravíme a pošleme vám krátkou verzi písničky do 24h.<br>
                     3. Po vašem schválení a úhradě píseň nahrajeme celou.<br>
                     4. Hotovou skladbu dostanete e-mailem s možností 1 úpravy zdarma.
                 </p>
@@ -425,7 +458,7 @@
 
             <details>
                 <summary>Kolik to stojí?</summary>
-                <p>Základní balíček stojí 999 Kč. Do 48h obdržíte MP3 a text emailem + youtube odkaz na písničku s vaší fotkou nebo stylovým obrázkem.</p>
+                <p>Základní balíček stojí 999 Kč. Do 48h obdržíte MP3 a text emailem + youtube odkaz na písničku s vaší fotkou nebo námi vytvořeným obrázkem.</p>
             </details>
 
             <details>
@@ -476,39 +509,55 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('exitModal')">&times;</span>
             
-            <div class="discount-badge">SLEVA 10%</div>
-            <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive; margin-top:0;">Nechoďte s prázdnou!</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">
-                Teď se to nehodí? <strong>Uložte si termín výročí</strong> a my vám připomeneme dárek včas + <span style="color: var(--pink)">získáte 10% slevu</span> na později.
-            </p>
-            
-            <!-- FORMULÁŘ UVNITŘ POPUPU -->
-            <form action="https://formspree.io/f/xgoaengz" method="POST">
-                <input type="hidden" name="typ_formulare" value="Exit_Popup_Sber_Dat">
+            <!-- Obsah Popup formuláře -->
+            <div id="exit-form-container">
+                <div class="discount-badge">SLEVA 10%</div>
+                <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive; margin-top:0;">Nechoďte s prázdnou!</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 20px;">
+                    Teď se to nehodí? <strong>Uložte si termín výročí</strong> a my vám připomeneme dárek včas + <span style="color: var(--pink)">získáte 10% slevu</span> na později.
+                </p>
                 
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Váš e-mail" required style="text-align:center;">
-                </div>
-                <div class="form-group" style="display:flex; gap:10px;">
-                    <input type="date" name="datum_udalosti" required style="flex:1;">
-                    <input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;">
-                </div>
-                
-                <div class="checkbox-group" style="justify-content: center; text-align: center;">
-                    <input type="checkbox" name="marketing_souhlas" checked required>
-                    <span>Souhlasím s připomínkou a zasláním slevy.</span>
-                </div>
+                <form id="exitForm" action="https://formspree.io/f/xgoaengz" method="POST">
+                    <input type="hidden" name="typ_formulare" value="Exit_Popup_Sber_Dat">
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Váš e-mail" required style="text-align:center;">
+                    </div>
+                    <div class="form-group" style="display:flex; gap:10px;">
+                        <input type="date" name="datum_udalosti" required style="flex:1;">
+                        <input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;">
+                    </div>
+                    
+                    <div class="checkbox-group" style="justify-content: center; text-align: center;">
+                        <input type="checkbox" name="marketing_souhlas" checked required>
+                        <span>Souhlasím s připomínkou a zasláním slevy.</span>
+                    </div>
 
-                <button class="cta-button" type="submit">Uložit termín a získat slevu</button>
-            </form>
-            
-            <p style="font-size: 0.7rem; color: #888; margin-top: 15px; cursor: pointer;" onclick="closeModal('exitModal')">Ne, děkuji, nechci slevu.</p>
+                    <button class="cta-button" type="submit">Uložit termín a získat slevu</button>
+                    <div class="loading-spinner" id="spinner-exit"></div>
+                </form>
+                
+                <p style="font-size: 0.7rem; color: #888; margin-top: 15px; cursor: pointer;" onclick="closeModal('exitModal')">Ne, děkuji, nechci slevu.</p>
+            </div>
+
+            <!-- Úspěšná zpráva v Popupu -->
+            <div id="success-message-exit" class="success-message">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3 style="margin-top:0;">Uloženo!</h3>
+                <p>Termín hlídáme za vás. Slevový kód jsme vám právě poslali na e-mail.</p>
+                <button class="cta-button" onclick="closeModal('exitModal')">Zavřít</button>
+            </div>
+
         </div>
     </div>
 
     <!-- === SCRIPTS === -->
     <script>
-        // TABS
+        // --- 1. GLOBÁLNÍ PROMĚNNÁ: Bylo už něco odesláno? ---
+        let formSubmittedGlobal = false;
+        let exitIntentShown = false;
+
+        // --- 2. TABS & MODALS ---
         function openTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -516,30 +565,87 @@
             event.currentTarget.classList.add('active');
         }
 
-        // MODALS
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // EXIT INTENT LOGIC
-        let exitIntentShown = false;
+        // --- 3. AJAX SUBMISSION LOGIC (Žádné přesměrování!) ---
+        
+        async function handleFormSubmit(event, formId, spinnerId, containerId, successId) {
+            event.preventDefault(); // Zastaví přesměrování
+            const form = document.getElementById(formId);
+            const spinner = document.getElementById(spinnerId);
+            const button = form.querySelector('button');
+            
+            // UI Loading state
+            button.style.display = 'none';
+            spinner.style.display = 'block';
+
+            const data = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    // Success!
+                    formSubmittedGlobal = true; // Zabrání exit popupu
+                    
+                    // Hide form container, Show success message
+                    document.getElementById(containerId).style.display = 'none';
+                    document.getElementById(successId).style.display = 'flex';
+                    
+                    // Pokud je to exit popup, po chvíli ho nezavíráme automaticky, necháme uživatele přečíst
+                } else {
+                    alert("Omlouváme se, došlo k chybě. Zkuste to prosím znovu.");
+                    button.style.display = 'block';
+                    spinner.style.display = 'none';
+                }
+            } catch (error) {
+                alert("Omlouváme se, došlo k chybě připojení.");
+                button.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        }
+
+        // Attach listeners to forms
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            handleFormSubmit(e, 'orderForm', 'spinner-order', 'form-container-main', 'success-message-main');
+        });
+
+        document.getElementById('remindForm').addEventListener('submit', function(e) {
+            handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main');
+        });
+
+        document.getElementById('exitForm').addEventListener('submit', function(e) {
+            handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit');
+        });
+
+
+        // --- 4. EXIT INTENT LOGIC (S POJISTKOU) ---
         
         document.addEventListener('mouseleave', function(e) {
-            if (e.clientY < 0 && !exitIntentShown) {
+            // Zobrazit jen pokud:
+            // 1. Myš vyjede nahoru (clientY < 0)
+            // 2. Popup ještě nebyl zobrazen (!exitIntentShown)
+            // 3. Uživatel ještě nic NEODESLAL (!formSubmittedGlobal)
+            if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) {
                 openModal('exitModal');
                 exitIntentShown = true;
             }
         });
 
-        // Mobile fallback (po 40s)
+        // Mobile fallback (po 40s), také kontroluje submission
         setTimeout(() => {
-           if (!exitIntentShown) {
-               // Volitelné: na mobilu to může být otravné, nechat jen pokud chcete agresivní marketing
-               // openModal('exitModal'); 
+           if (!exitIntentShown && !formSubmittedGlobal) {
+               // openModal('exitModal'); // Odkomentovat pro mobil
                // exitIntentShown = true;
            }
         }, 40000);
+
     </script>
 
 </body>
 </html>
-
