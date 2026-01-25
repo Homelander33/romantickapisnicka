@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- === GOOGLE ANALYTICS === -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERPGQVLV5Y"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ERPGQVLV5Y');
-    </script>
-
     <!-- === SEO === -->
     <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu. Dojemný dárek k výročí, svatbě nebo narozeninám.">
     <meta name="keywords" content="píseň na míru, originální dárek, romantická píseň, skladba na zakázku, dárek k výročí, svatební píseň">
@@ -21,7 +12,9 @@
     <meta property="og:url" content="https://www.romantickapisnicka.cz/">
     <meta property="og:title" content="Darujte píseň, která řekne vše ❤️ | RomantickáPísnička.cz">
     <meta property="og:description" content="Složíme originální hudbu a text z vašeho příběhu. Poslechněte si ukázku a nechte si vytvořit nezapomenutelný dárek.">
-    
+    <meta property="og:image" content="https://www.romantickapisnicka.cz/social-share-placeholder.jpg"> 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
+
     <title>Romantická Písnička | Prémiová hudba na míru</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -262,7 +255,7 @@
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
 
-        /* --- FOOTER & SOCIAL --- */
+        /* --- FOOTER --- */
         .site-footer {
             width: 100%; background: #02040a; color: #888;
             padding: 40px 20px; text-align: center; font-size: 0.8rem;
@@ -271,7 +264,7 @@
         .site-footer p { margin: 5px 0; }
         .site-footer strong { color: #ccc; }
 
-        /* --- MODALS --- */
+        /* --- MODALS (GDPR, Exit) --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center;
@@ -291,16 +284,33 @@
             font-size: 0.9rem; text-transform: uppercase;
         }
 
+        /* --- COOKIE BAR --- */
+        .cookie-bar {
+            display: none; /* JS zapne */
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(5, 10, 20, 0.95);
+            border-top: 1px solid var(--gold);
+            padding: 15px; z-index: 2000;
+            flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7);
+        }
+        .cookie-text { font-size: 0.8rem; color: #ddd; margin-bottom: 10px; max-width: 800px; }
+        .cookie-buttons { display: flex; gap: 10px; }
+        .btn-accept { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 5px; border:none; font-weight:bold; cursor:pointer;}
+        .btn-reject { background: transparent; color: #888; border: 1px solid #444; padding: 8px 15px; border-radius: 5px; cursor:pointer;}
+        
+        @media (min-width: 768px) {
+            .cookie-bar { flex-direction: row; justify-content: center; gap: 20px; text-align: left;}
+            .cookie-text { margin-bottom: 0; }
+        }
+
     </style>
 </head>
 <body>
 
     <section class="hero">
         
-        <!-- KARTA 1: PŘEPÍNACÍ FORMULÁŘ -->
         <div class="glass-card">
-            
-            <!-- OBSAH KARTY (FORMULÁŘE) - ZMIZÍ PO ODESLÁNÍ -->
             <div id="form-container-main">
                 <h1>Vaše píseň lásky</h1>
                 <p class="subtitle">
@@ -318,6 +328,8 @@
                 <div id="order" class="tab-content active">
                     <form id="orderForm" action="https://formspree.io/f/xgoaengz" method="POST">
                         <input type="hidden" name="typ_formulare" value="Poptavka_Pisne">
+                        <!-- SKRYTÉ POLE PRO FINGERPRINT -->
+                        <input type="hidden" name="technicke_info" class="tech-info-input">
                         
                         <div class="form-group">
                             <label>Váš E-mail <span class="optional">Povinné</span></label>
@@ -350,7 +362,7 @@
                     </form>
                 </div>
 
-                <!-- TAB 2: PŘIPOMÍNKA (Lead Magnet) -->
+                <!-- TAB 2: PŘIPOMÍNKA -->
                 <div id="remind" class="tab-content">
                     <p style="font-size:0.9rem; margin-bottom:15px;">
                         Teď není ten správný čas? Nevadí. <br>
@@ -358,6 +370,7 @@
                     </p>
                     <form id="remindForm" action="https://formspree.io/f/xgoaengz" method="POST">
                         <input type="hidden" name="typ_formulare" value="Pripominka_Vyroci">
+                        <input type="hidden" name="technicke_info" class="tech-info-input">
 
                         <div class="form-group">
                             <label>Kdy je událost? <span class="optional">Datum výročí/narozenin</span></label>
@@ -383,9 +396,9 @@
                         <div class="loading-spinner" id="spinner-remind"></div>
                     </form>
                 </div>
-            </div> <!-- End form-container-main -->
+            </div>
 
-            <!-- ÚSPĚŠNÁ ZPRÁVA (ZOBRAZÍ SE PO ODESLÁNÍ) -->
+            <!-- ÚSPĚŠNÁ ZPRÁVA -->
             <div id="success-message-main" class="success-message">
                 <i class="fas fa-check-circle success-icon"></i>
                 <h2 style="margin-top:0;">Skvělá práce!</h2>
@@ -412,11 +425,9 @@
         <div class="glass-card faq-section">
             
             <h2>Poslechněte si ukázky</h2>
-            
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/xNoMuAGGvCk" title="Ukázka 1" frameborder="0" allowfullscreen></iframe>
             </div>
-
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/T6wzy4OX9Pw" title="Ukázka 2" frameborder="0" allowfullscreen></iframe>
             </div>
@@ -443,40 +454,22 @@
             <h2>Časté dotazy</h2>
             <details>
                 <summary>Co přesně dostanu?</summary>
-                <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru. Do emailu vám příjde soubor MP3 + text + odkaz na neveřejné youtube video.</p>
+                <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru.</p>
             </details>
-
-            <details>
-                <summary>Jaký je postup?</summary>
-                <p>
-                    1. Vyplníte formulář výše.<br>
-                    2. Připravíme a pošleme vám krátkou verzi písničky do 24h.<br>
-                    3. Po vašem schválení a úhradě píseň nahrajeme celou.<br>
-                    4. Hotovou skladbu dostanete e-mailem s možností 1 úpravy zdarma.
-                </p>
-            </details>
-
             <details>
                 <summary>Kolik to stojí?</summary>
-                <p>Základní balíček stojí 999 Kč. Do 48h obdržíte MP3 a text emailem + youtube odkaz na písničku s vaší fotkou nebo námi vytvořeným obrázkem.</p>
+                <p>Základní balíček stojí 999 Kč. Platíte až po schválení ukázky.</p>
             </details>
-
             <details>
                 <summary>Doplňkové služby <span class="upsell-tag">TIP</span></summary>
-                <p>
-                    • Video slideshow z fotek +390 Kč<br>
-                    • Expresní dodání (do 12h) +590 Kč <br>
-                    • Druhá verze písničky v jiném stylu +190 Kč<br>
-                    • Nahrání na Spotify/Apple music (10 dní) +490 Kč <br>
-                    • Dárkový poukaz základní balíček 999 Kč 
-                </p>
+                <p>• Video slideshow +390 Kč<br>• Expresní dodání +590 Kč<br>• Spotify/Apple Music +490 Kč</p>
             </details>
 
         </div>
 
     </section>
 
-    <!-- === PATIČKA === -->
+    <!-- === PATIČKA (PROVOZOVATEL VIDITELNÝ) === -->
     <footer class="site-footer">
         <div style="max-width: 800px; margin: 0 auto;">
             <p><strong>© 2026 RomantickáPísnička.cz</strong></p>
@@ -490,35 +483,45 @@
         </div>
     </footer>
 
+    <!-- === COOKIE BAR === -->
+    <div id="cookieBar" class="cookie-bar">
+        <div class="cookie-text">
+            Používáme cookies a analytické nástroje, abychom pro vás zlepšili web. Vaše soukromí respektujeme.
+        </div>
+        <div class="cookie-buttons">
+            <button class="btn-accept" onclick="acceptCookies()">Souhlasím</button>
+            <button class="btn-reject" onclick="rejectCookies()">Odmítnout</button>
+        </div>
+    </div>
+
     <!-- === MODAL: GDPR === -->
     <div id="privacyModal" class="modal-overlay" onclick="if(event.target === this) closeModal('privacyModal')">
         <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
             <h3 style="color: var(--gold); margin-top: 0;">Ochrana osobních údajů</h3>
             <p style="font-size: 0.8rem; line-height: 1.5;">
-                <strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795, se sídlem Zahradní 552, Orlová.<br><br>
-                <strong>2. Účel zpracování:</strong> Údaje (email, text příběhu, datum výročí) zpracováváme za účelem: a) plnění smlouvy (dodání písně), b) zaslání připomínky (na vaši žádost), c) zasílání marketingových sdělení (pokud jste udělili souhlas).<br><br>
-                <strong>3. Doba uložení:</strong> Údaje uchováváme po dobu nezbytnou k vyřízení objednávky a následně dle zákonných lhůt. Marketingový souhlas platí do odvolání.<br><br>
-                <strong>4. Vaše práva:</strong> Máte právo souhlas kdykoliv odvolat, požadovat výmaz údajů nebo informaci o zpracování. Kontakt: info@romantickapisnicka.cz.
+                <strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795, Orlová.<br><br>
+                <strong>2. Účel zpracování:</strong> Údaje (email, příběh, datum) zpracováváme za účelem plnění smlouvy a zaslání připomínky. Technická data (typ zařízení, prohlížeč) sbíráme pro zajištění funkčnosti, bezpečnosti a analytiku webu.<br><br>
+                <strong>3. Cookies:</strong> Analytické nástroje spouštíme až po vašem souhlasu.<br><br>
+                <strong>4. Práva:</strong> Máte právo souhlas odvolat, požadovat výmaz. Kontakt: info@romantickapisnicka.cz.
             </p>
         </div>
     </div>
 
-    <!-- === MODAL: EXIT INTENT (SLEVA + PŘIPOMÍNKA) === -->
+    <!-- === MODAL: EXIT INTENT (SLEVA) === -->
     <div id="exitModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('exitModal')">&times;</span>
-            
-            <!-- Obsah Popup formuláře -->
             <div id="exit-form-container">
                 <div class="discount-badge">SLEVA 10%</div>
                 <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive; margin-top:0;">Nechoďte s prázdnou!</h2>
                 <p style="font-size: 0.9rem; margin-bottom: 20px;">
-                    Teď se to nehodí? <strong>Uložte si termín výročí</strong> a my vám připomeneme dárek včas + <span style="color: var(--pink)">získáte 10% slevu</span> na později.
+                    Teď se to nehodí? <strong>Uložte si termín</strong> a získejte 10% slevu na později.
                 </p>
                 
                 <form id="exitForm" action="https://formspree.io/f/xgoaengz" method="POST">
                     <input type="hidden" name="typ_formulare" value="Exit_Popup_Sber_Dat">
+                    <input type="hidden" name="technicke_info" class="tech-info-input">
                     
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Váš e-mail" required style="text-align:center;">
@@ -527,37 +530,101 @@
                         <input type="date" name="datum_udalosti" required style="flex:1;">
                         <input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;">
                     </div>
-                    
                     <div class="checkbox-group" style="justify-content: center; text-align: center;">
                         <input type="checkbox" name="marketing_souhlas" checked required>
-                        <span>Souhlasím s připomínkou a zasláním slevy.</span>
+                        <span>Souhlasím s připomínkou a slevou.</span>
                     </div>
 
-                    <button class="cta-button" type="submit">Uložit termín a získat slevu</button>
+                    <button class="cta-button" type="submit">Uložit a získat slevu</button>
                     <div class="loading-spinner" id="spinner-exit"></div>
                 </form>
-                
-                <p style="font-size: 0.7rem; color: #888; margin-top: 15px; cursor: pointer;" onclick="closeModal('exitModal')">Ne, děkuji, nechci slevu.</p>
+                <p style="font-size: 0.7rem; color: #888; margin-top: 15px; cursor: pointer;" onclick="closeModal('exitModal')">Ne, děkuji.</p>
             </div>
-
-            <!-- Úspěšná zpráva v Popupu -->
+            
             <div id="success-message-exit" class="success-message">
                 <i class="fas fa-check-circle success-icon"></i>
                 <h3 style="margin-top:0;">Uloženo!</h3>
-                <p>Termín hlídáme za vás. Slevový kód jsme vám právě poslali na e-mail.</p>
+                <p>Termín hlídáme. Slevu jsme poslali na e-mail.</p>
                 <button class="cta-button" onclick="closeModal('exitModal')">Zavřít</button>
             </div>
-
         </div>
     </div>
 
-    <!-- === SCRIPTS === -->
+    <!-- === LOGIC: ANALYTICS + FINGERPRINTING + AJAX === -->
     <script>
-        // --- 1. GLOBÁLNÍ PROMĚNNÁ: Bylo už něco odesláno? ---
+        // --- GOOGLE ANALYTICS LOAD FUNCTION (Triggered only after consent) ---
+        function loadAnalytics() {
+            const script = document.createElement('script');
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-ERPGQVLV5Y";
+            script.async = true;
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ERPGQVLV5Y');
+            console.log("Analytics Loaded");
+        }
+
+        // --- COOKIE BAR LOGIC ---
+        function checkCookies() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookieBar').style.display = 'flex';
+            } else if (consent === 'accepted') {
+                loadAnalytics(); // Load immediately if already accepted
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBar').style.display = 'none';
+            loadAnalytics();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('cookieConsent', 'rejected');
+            document.getElementById('cookieBar').style.display = 'none';
+        }
+
+        // Run check on load
+        window.onload = checkCookies;
+
+
+        // --- FINGERPRINTING & FORM LOGIC ---
         let formSubmittedGlobal = false;
         let exitIntentShown = false;
 
-        // --- 2. TABS & MODALS ---
+        function collectVisitorInfo() {
+            const screenInfo = `${window.screen.width}x${window.screen.height}`;
+            const windowSize = `${window.innerWidth}x${window.innerHeight}`;
+            const language = navigator.language || navigator.userLanguage;
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const localTime = new Date().toLocaleString();
+            
+            let os = "Neznámý";
+            if (navigator.userAgent.indexOf("Win") != -1) os = "Windows";
+            if (navigator.userAgent.indexOf("Mac") != -1) os = "MacOS";
+            if (navigator.userAgent.indexOf("Linux") != -1) os = "Linux";
+            if (navigator.userAgent.indexOf("Android") != -1) os = "Android";
+            if (navigator.userAgent.indexOf("like Mac") != -1) os = "iOS";
+
+            const referrer = document.referrer || "Přímá návštěva / Neznámý";
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            return `
+=== TECHNICKÉ INFO ===
+OS: ${os} | Browser: ${navigator.userAgent}
+Rozlišení: ${screenInfo} | Okno: ${windowSize}
+Jazyk: ${language} | Timezone: ${timezone}
+Čas odeslání: ${localTime}
+----------------------
+Ref: ${referrer}
+UTM Source: ${urlParams.get('utm_source') || '-'}
+UTM Medium: ${urlParams.get('utm_medium') || '-'}
+            `;
+        }
+
         function openTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -568,84 +635,73 @@
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // --- 3. AJAX SUBMISSION LOGIC (Žádné přesměrování!) ---
-        
         async function handleFormSubmit(event, formId, spinnerId, containerId, successId) {
-            event.preventDefault(); // Zastaví přesměrování
+            event.preventDefault(); 
             const form = document.getElementById(formId);
             const spinner = document.getElementById(spinnerId);
             const button = form.querySelector('button');
             
-            // UI Loading state
+            // Inject Tech Data
+            const techInput = form.querySelector('.tech-info-input');
+            if (techInput) techInput.value = collectVisitorInfo();
+            
             button.style.display = 'none';
             spinner.style.display = 'block';
 
             const data = new FormData(form);
-            
             try {
                 const response = await fetch(form.action, {
                     method: form.method,
                     body: data,
                     headers: { 'Accept': 'application/json' }
                 });
-
                 if (response.ok) {
-                    // Success!
-                    formSubmittedGlobal = true; // Zabrání exit popupu
-                    
-                    // Hide form container, Show success message
-                    document.getElementById(containerId).style.display = 'none';
-                    document.getElementById(successId).style.display = 'flex';
-                    
-                    // Pokud je to exit popup, po chvíli ho nezavíráme automaticky, necháme uživatele přečíst
+                    formSubmittedGlobal = true; 
+                    if (containerId === 'exit-form-container') {
+                         document.getElementById(containerId).style.display = 'none';
+                         document.getElementById(successId).style.display = 'flex';
+                    } else {
+                         document.getElementById(containerId).style.display = 'none';
+                         document.getElementById(successId).style.display = 'flex';
+                    }
                 } else {
-                    alert("Omlouváme se, došlo k chybě. Zkuste to prosím znovu.");
+                    alert("Chyba při odesílání. Zkuste to prosím znovu.");
                     button.style.display = 'block';
                     spinner.style.display = 'none';
                 }
             } catch (error) {
-                alert("Omlouváme se, došlo k chybě připojení.");
+                alert("Chyba připojení.");
                 button.style.display = 'block';
                 spinner.style.display = 'none';
             }
         }
 
-        // Attach listeners to forms
+        // Assign listeners
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             handleFormSubmit(e, 'orderForm', 'spinner-order', 'form-container-main', 'success-message-main');
         });
-
         document.getElementById('remindForm').addEventListener('submit', function(e) {
             handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main');
         });
-
         document.getElementById('exitForm').addEventListener('submit', function(e) {
             handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit');
         });
 
-
-        // --- 4. EXIT INTENT LOGIC (S POJISTKOU) ---
-        
+        // Exit Intent
         document.addEventListener('mouseleave', function(e) {
-            // Zobrazit jen pokud:
-            // 1. Myš vyjede nahoru (clientY < 0)
-            // 2. Popup ještě nebyl zobrazen (!exitIntentShown)
-            // 3. Uživatel ještě nic NEODESLAL (!formSubmittedGlobal)
             if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) {
                 openModal('exitModal');
                 exitIntentShown = true;
             }
         });
-
-        // Mobile fallback (po 40s), také kontroluje submission
+        
+        // Mobile fallback timer (40s)
         setTimeout(() => {
            if (!exitIntentShown && !formSubmittedGlobal) {
-               // openModal('exitModal'); // Odkomentovat pro mobil
-               // exitIntentShown = true;
+               // openModal('exitModal'); // Optional for mobile
            }
         }, 40000);
 
     </script>
-
 </body>
 </html>
