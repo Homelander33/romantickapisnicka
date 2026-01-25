@@ -418,17 +418,43 @@
     </div>
 
     <!-- === MODALS === -->
+        <!-- === MODAL: GDPR (PLNÁ VERZE PRO SKLIK/SEZNAM) === -->
     <div id="privacyModal" class="modal-overlay" onclick="if(event.target === this) closeModal('privacyModal')">
-        <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto;">
+        <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto; color: #ddd; font-size: 0.85rem;">
             <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
-            <h3 style="color: var(--gold); margin-top: 0;">Ochrana osobních údajů</h3>
-            <p style="font-size: 0.8rem; line-height: 1.5;">
-                <strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795.<br>
-                <strong>2. Účel zpracování:</strong> Plnění smlouvy a marketing (se souhlasem).<br>
-                <strong>3. Práva:</strong> Odvolání souhlasu na info@romantickapisnicka.cz.
+            
+            <h3 style="color: var(--gold); margin-top: 0; text-align: center; margin-bottom: 20px;">Zásady zpracování osobních údajů</h3>
+            
+            <p><strong>1. Správce údajů</strong><br>
+            Pavel Szajter, IČ: 05908795, se sídlem Zahradní 552, 735 14 Orlová (zapsán v živnostenském rejstříku).</p>
+
+            <p><strong>2. Jaké údaje zpracováváme</strong><br>
+            <ul>
+                <li><strong>Kontaktní údaje:</strong> E-mail (pro komunikaci a dodání služby).</li>
+                <li><strong>Obsahové údaje:</strong> Příběh písně, jména, data výročí (pro vytvoření díla).</li>
+                <li><strong>Technické údaje:</strong> IP adresa, typ zařízení, prohlížeč (pro zajištění bezpečnosti webu, prevenci spamu a analytiku).</li>
+            </ul>
             </p>
+
+            <p><strong>3. Účel a právní důvod zpracování</strong><br>
+            <ul>
+                <li><strong>Plnění smlouvy:</strong> Vytvoření a dodání písně na základě vaší objednávky.</li>
+                <li><strong>Oprávněný zájem:</strong> Zajištění funkčnosti webu a ochrana před boty (technické údaje).</li>
+                <li><strong>Souhlas:</strong> Zasílání připomínek výročí a marketingových newsletterů (pouze pokud jste zaškrtli souhlas nebo jste naším zákazníkem).</li>
+            </ul>
+            </p>
+
+            <p><strong>4. Komu údaje předáváme (Zpracovatelé)</strong><br>
+            Pro zajištění chodu webu využíváme prověřené služby: Formspree Inc. (formuláře), Google Ireland Ltd. (analytika), případně účetní a daňoví poradci. Data neprodáváme třetím stranám.</p>
+
+            <p><strong>5. Doba uložení</strong><br>
+            Údaje pro plnění smlouvy uchováváme po dobu vyžadovanou zákonem (fakturace). Údaje pro marketing uchováváme do odvolání souhlasu, nejdéle však 3 roky.</p>
+
+            <p><strong>6. Vaše práva</strong><br>
+            Máte právo kdykoliv odvolat souhlas (odhlášením v emailu nebo napsáním na info@romantickapisnicka.cz), požadovat výpis evidovaných údajů, jejich opravu nebo výmaz ("právo být zapomenut"). Máte právo podat stížnost u ÚOOÚ.</p>
         </div>
     </div>
+
 
     <div id="exitModal" class="modal-overlay">
         <div class="modal-content">
@@ -565,4 +591,5 @@
     </script>
 </body>
 </html>
+
 
