@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- === PRELOAD IMAGE (RYCHLOST) === -->
+    <link rel="preload" href="bckg wide.png" as="image" media="(min-width: 769px)">
+    <link rel="preload" href="bckg portrait.png" as="image" media="(max-width: 768px)">
+
     <!-- === SEO === -->
     <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu. Dojemný dárek k výročí, svatbě nebo narozeninám.">
     <meta name="keywords" content="píseň na míru, originální dárek, romantická píseň, skladba na zakázku, dárek k výročí, svatební píseň">
@@ -12,9 +16,7 @@
     <meta property="og:url" content="https://www.romantickapisnicka.cz/">
     <meta property="og:title" content="Darujte píseň, která řekne vše ❤️ | RomantickáPísnička.cz">
     <meta property="og:description" content="Složíme originální hudbu a text z vašeho příběhu. Poslechněte si ukázku a nechte si vytvořit nezapomenutelný dárek.">
-    <meta property="og:image" content="https://www.romantickapisnicka.cz/social-share-placeholder.jpg"> 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
-
+    
     <title>Romantická Písnička | Prémiová hudba na míru</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -32,173 +34,82 @@
         * { box-sizing: border-box; }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
+            margin: 0; padding: 0; min-height: 100%;
             font-family: 'Montserrat', sans-serif;
-            color: white;
-            background-color: var(--bg-color-fallback);
+            color: white; background-color: var(--bg-color-fallback);
             scroll-behavior: smooth;
         }
 
+        /* --- HERO --- */
         .hero {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 40px 20px;
-            gap: 40px;
-            min-height: 100vh;
+            position: relative; width: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-start;
+            padding: 40px 20px; gap: 40px; min-height: 100vh;
             background: url('bckg wide.png') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
+            background-size: cover; background-attachment: fixed;
             padding-bottom: 150px;
         }
-
         .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
-            z-index: 1;
-            pointer-events: none;
+            z-index: 1; pointer-events: none;
         }
 
         @media (max-width: 768px) {
             .hero {
                 background: url('bckg portrait.png') no-repeat top center;
-                background-size: 100% auto; 
-                background-attachment: scroll; 
+                background-size: 100% auto; background-attachment: scroll; 
                 padding-top: 100px; 
             }
         }
 
         /* --- KARTY --- */
         .glass-card {
-            position: relative;
-            z-index: 10;
+            position: relative; z-index: 10;
             background-color: var(--glass-bg); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px; border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 500px;
-            padding: 30px 25px;
-            text-align: center;
-            transition: transform 0.3s ease;
+            width: 100%; max-width: 500px; padding: 30px 25px;
+            text-align: center; transition: transform 0.3s ease;
         }
 
         /* --- TABS --- */
         .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50px;
-            padding: 5px;
+            display: flex; justify-content: center; margin-bottom: 20px;
+            background: rgba(0,0,0,0.3); border-radius: 50px; padding: 5px;
         }
-
         .tab-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            color: #aaa;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: 40px;
-            transition: all 0.3s;
+            flex: 1; padding: 10px; border: none; background: transparent;
+            color: #aaa; font-family: 'Montserrat', sans-serif; font-weight: 600;
+            font-size: 0.85rem; cursor: pointer; border-radius: 40px; transition: all 0.3s;
         }
-
         .tab-btn.active {
-            background-color: var(--gold);
-            color: #0e1c36;
+            background-color: var(--gold); color: #0e1c36;
             box-shadow: 0 4px 10px rgba(244, 208, 139, 0.3);
         }
-
         .tab-content { display: none; animation: fadeIn 0.5s; }
         .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- SUCCESS MESSAGE & LOADING --- */
-        .success-message {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeIn 0.5s;
-        }
-        .success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; }
-        
-        .loading-spinner {
-            display: none;
-            border: 4px solid rgba(255,255,255,0.1);
-            border-left: 4px solid var(--gold);
-            border-radius: 50%;
-            width: 30px; height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 10px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* --- VIDEO, RECENZE, UPSELL --- */
+        /* --- UI ELEMENTS --- */
         .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(244, 208, 139, 0.3);
-            background: #000;
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 12px; margin-bottom: 25px;
+            border: 1px solid rgba(244, 208, 139, 0.3); background: #000;
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         .review-box {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 3px solid var(--gold);
-            text-align: left;
+            background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px;
+            margin-bottom: 15px; border-left: 3px solid var(--gold); text-align: left;
         }
         .stars { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
         .review-text { font-style: italic; font-size: 0.9rem; color: #eee; margin-bottom: 5px; }
         .review-author { font-weight: bold; font-size: 0.8rem; color: var(--pink); text-align: right; }
 
-        .upsell-tag {
-            background-color: var(--gold); color: #0e1c36; font-size: 0.7rem;
-            padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        /* --- TYPOGRAFIE --- */
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            color: var(--gold);
-            margin: 0 0 10px 0;
-            line-height: 1.2;
-        }
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
-            color: var(--gold);
-            margin: 20px 0 15px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--gold); margin: 0 0 10px 0; line-height: 1.2; }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--gold); margin: 20px 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
         p.subtitle { font-size: 0.95rem; margin-bottom: 20px; color: #f0f0f0; line-height: 1.6; }
         .highlight { color: var(--pink); font-weight: 700; }
 
@@ -206,7 +117,6 @@
         .form-group { margin-bottom: 12px; text-align: left; }
         label { display: block; margin-bottom: 4px; font-size: 0.75rem; color: var(--gold); font-weight: 700; text-transform: uppercase;}
         .optional { font-size: 0.65rem; color: #ccc; float: right; font-weight: 400; text-transform: none;}
-        
         input, textarea, select {
             width: 100%; padding: 10px; border-radius: 8px;
             border: 1px solid rgba(244, 208, 139, 0.3);
@@ -215,101 +125,89 @@
         }
         input:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(0,0,0,0.6); }
 
-        .checkbox-group {
-            display: flex; align-items: flex-start; gap: 10px;
-            font-size: 0.75rem; color: #ccc; margin-top: 10px; text-align: left;
-        }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 0.75rem; color: #ccc; margin-top: 10px; text-align: left; }
         .checkbox-group input { width: auto; margin-top: 3px; }
-        
+
         button.cta-button {
-            width: 100%; padding: 15px; margin-top: 15px;
-            border: none; border-radius: 8px;
+            width: 100%; padding: 15px; margin-top: 15px; border: none; border-radius: 8px;
             background: linear-gradient(135deg, var(--gold), #c99f50);
-            color: #0e1c36; font-weight: 700; font-size: 1.1rem;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(244, 208, 139, 0.3);
-            transition: transform 0.2s;
+            color: #0e1c36; font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(244, 208, 139, 0.3); transition: transform 0.2s;
         }
         button.cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244, 208, 139, 0.5); }
 
-        .privacy-note {
-            font-size: 0.65rem; margin-top: 10px; opacity: 0.7; text-align: center;
-        }
-        .privacy-link { color: var(--gold); text-decoration: underline; cursor: pointer; }
+        /* TRUST BADGES */
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 15px; opacity: 0.7; font-size: 0.7rem; color: #ccc; }
+        .trust-item { display: flex; align-items: center; gap: 5px; }
 
-        /* --- FAQ --- */
-        details {
-            background: rgba(0, 0, 0, 0.3); margin-bottom: 10px;
-            border-radius: 8px; border: 1px solid rgba(244, 208, 139, 0.1);
+        /* --- STICKY MOBILE CTA (MARKETING BOOST) --- */
+        .sticky-cta {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(14, 28, 54, 0.95); border-top: 1px solid var(--gold);
+            padding: 12px; z-index: 900; display: none; text-align: center;
+            backdrop-filter: blur(5px);
         }
+        .sticky-cta button { width: 100%; padding: 12px; margin: 0; font-size: 1rem; }
+        /* Zobrazit jen na mobilu a když uživatel odscrolloval */
+        @media (max-width: 768px) {
+            .sticky-cta.visible { display: block; }
+        }
+
+        /* --- FOMO NOTIFICATION (Social Proof) --- */
+        .fomo-popup {
+            position: fixed; bottom: 20px; left: 20px; z-index: 950;
+            background: rgba(14, 28, 54, 0.9); border: 1px solid var(--gold);
+            border-radius: 10px; padding: 12px 15px;
+            display: flex; align-items: center; gap: 12px;
+            transform: translateX(-150%); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 300px;
+        }
+        .fomo-popup.show { transform: translateX(0); }
+        .fomo-icon { background: var(--pink); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .fomo-text { font-size: 0.75rem; color: #fff; text-align: left; line-height: 1.3; }
+        .fomo-text strong { color: var(--gold); }
+        .fomo-time { font-size: 0.65rem; color: #aaa; display: block; margin-top: 2px;}
+
+        /* --- FAQ & FOOTER --- */
+        details { background: rgba(0, 0, 0, 0.3); margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(244, 208, 139, 0.1); }
         summary { padding: 15px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center;}
         summary::after { content: '+'; color: var(--gold); font-weight: bold; }
         details[open] summary::after { transform: rotate(45deg); }
         details p, details ul { padding: 0 15px 15px 15px; margin: 0; font-size: 0.9rem; color: #ddd; text-align: left; line-height: 1.5; }
         details ul { padding-left: 35px; }
 
-        /* --- SCROLL HINT --- */
-        .scroll-hint {
-            margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.6);
-            animation: bounce 2s infinite; cursor: pointer;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
-
-        /* --- FOOTER --- */
-        .site-footer {
-            width: 100%; background: #02040a; color: #888;
-            padding: 40px 20px; text-align: center; font-size: 0.8rem;
-            border-top: 1px solid #222; position: relative; z-index: 20;
-        }
-        .site-footer p { margin: 5px 0; }
+        .site-footer { width: 100%; background: #02040a; color: #888; padding: 40px 20px; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; position: relative; z-index: 20; }
         .site-footer strong { color: #ccc; }
+        .privacy-link { color: var(--gold); text-decoration: underline; cursor: pointer; }
 
-        /* --- MODALS (GDPR, Exit) --- */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center;
-            backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background: #0e1c36; border: 1px solid var(--gold);
-            padding: 25px; border-radius: 15px; max-width: 450px; width: 90%;
-            text-align: center; position: relative; color: white;
-            box-shadow: 0 0 50px rgba(244, 208, 139, 0.2);
-        }
+        /* --- MODALS & COOKIES --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        .modal-content { background: #0e1c36; border: 1px solid var(--gold); padding: 25px; border-radius: 15px; max-width: 450px; width: 90%; text-align: center; position: relative; color: white; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #aaa; }
-        
-        .discount-badge {
-            display: inline-block; background: var(--pink); color: #0e1c36;
-            padding: 5px 10px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;
-            font-size: 0.9rem; text-transform: uppercase;
-        }
+        .discount-badge { display: inline-block; background: var(--pink); color: #0e1c36; padding: 5px 10px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; }
 
-        /* --- COOKIE BAR --- */
-        .cookie-bar {
-            display: none; /* JS zapne */
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(5, 10, 20, 0.95);
-            border-top: 1px solid var(--gold);
-            padding: 15px; z-index: 2000;
-            flex-direction: column; align-items: center; text-align: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.7);
-        }
-        .cookie-text { font-size: 0.8rem; color: #ddd; margin-bottom: 10px; max-width: 800px; }
-        .cookie-buttons { display: flex; gap: 10px; }
+        .cookie-bar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5, 10, 20, 0.98); border-top: 1px solid var(--gold); padding: 15px; z-index: 2000; flex-direction: column; align-items: center; text-align: center; }
+        .cookie-buttons { display: flex; gap: 10px; margin-top: 10px;}
         .btn-accept { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 5px; border:none; font-weight:bold; cursor:pointer;}
         .btn-reject { background: transparent; color: #888; border: 1px solid #444; padding: 8px 15px; border-radius: 5px; cursor:pointer;}
-        
-        @media (min-width: 768px) {
-            .cookie-bar { flex-direction: row; justify-content: center; gap: 20px; text-align: left;}
-            .cookie-text { margin-bottom: 0; }
-        }
+        @media (min-width: 768px) { .cookie-bar { flex-direction: row; justify-content: center; gap: 20px; text-align: left;} .cookie-buttons {margin-top:0;} }
 
+        /* Loading Spinner */
+        .loading-spinner { display: none; border: 4px solid rgba(255,255,255,0.1); border-left: 4px solid var(--gold); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 10px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success-message { display: none; flex-direction: column; align-items: center; padding: 20px; animation: fadeIn 0.5s; }
+        .success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; }
+        .upsell-tag { background-color: var(--gold); color: #0e1c36; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
+
+        /* Scroll Hint */
+        .scroll-hint { margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.6); animation: bounce 2s infinite; cursor: pointer; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
     </style>
 </head>
 <body>
 
     <section class="hero">
-        
         <div class="glass-card">
             <div id="form-container-main">
                 <h1>Vaše píseň lásky</h1>
@@ -327,8 +225,10 @@
                 <!-- TAB 1: OBJEDNÁVKA -->
                 <div id="order" class="tab-content active">
                     <form id="orderForm" action="https://formspree.io/f/xgoaengz" method="POST">
+                        <!-- Honeypot (Anti-spam) -->
+                        <input type="text" name="_gotcha" style="display:none">
+                        
                         <input type="hidden" name="typ_formulare" value="Poptavka_Pisne">
-                        <!-- SKRYTÉ POLE PRO FINGERPRINT -->
                         <input type="hidden" name="technicke_info" class="tech-info-input">
                         
                         <div class="form-group">
@@ -354,8 +254,14 @@
                         </div>
 
                         <button type="submit" class="cta-button">Získat ukázku zdarma</button>
-                        <div class="loading-spinner" id="spinner-order"></div>
                         
+                        <!-- Trust Badges -->
+                        <div class="trust-badges">
+                            <div class="trust-item"><i class="fas fa-shield-alt"></i> Bezpečný formulář</div>
+                            <div class="trust-item"><i class="fas fa-check-circle"></i> Ověření umělci</div>
+                        </div>
+
+                        <div class="loading-spinner" id="spinner-order"></div>
                         <div class="privacy-note">
                             Odesláním souhlasíte se <span class="privacy-link" onclick="openModal('privacyModal')">Zpracováním osobních údajů</span>.
                         </div>
@@ -369,6 +275,7 @@
                         <strong>Dáme vám vědět týden předem</strong>, abyste stihli dárek vyřešit v klidu.
                     </p>
                     <form id="remindForm" action="https://formspree.io/f/xgoaengz" method="POST">
+                        <input type="text" name="_gotcha" style="display:none">
                         <input type="hidden" name="typ_formulare" value="Pripominka_Vyroci">
                         <input type="hidden" name="technicke_info" class="tech-info-input">
 
@@ -376,20 +283,17 @@
                             <label>Kdy je událost? <span class="optional">Datum výročí/narozenin</span></label>
                             <input type="date" name="datum_udalosti" required>
                         </div>
-
                         <div class="form-group">
                             <label>Co slavíte? <span class="optional">Např. Výročí svatby</span></label>
                             <input type="text" name="nazev_udalosti" placeholder="Výročí, Narozeniny...">
                         </div>
-
                         <div class="form-group">
                             <label>Váš E-mail</label>
                             <input type="email" name="email" placeholder="vas@email.cz" required>
                         </div>
-
                         <div class="checkbox-group">
                             <input type="checkbox" name="marketing_souhlas" required>
-                            <span>Souhlasím se zasláním připomínky a občasných slevových akcí (newsletter).</span>
+                            <span>Souhlasím se zasláním připomínky a občasných slevových akcí.</span>
                         </div>
 
                         <button type="submit" class="cta-button" style="background: linear-gradient(135deg, #ddd, #bbb);">Nastavit připomínku</button>
@@ -398,14 +302,14 @@
                 </div>
             </div>
 
-            <!-- ÚSPĚŠNÁ ZPRÁVA -->
+            <!-- SUCCESS MESSAGE -->
             <div id="success-message-main" class="success-message">
                 <i class="fas fa-check-circle success-icon"></i>
                 <h2 style="margin-top:0;">Skvělá práce!</h2>
                 <p style="font-size: 1.1rem;">Vše jsme přijali v pořádku.</p>
                 <p style="color: #ccc; font-size: 0.9rem; margin-top: 10px;">
                     Zkontrolujte prosím svůj e-mail. <br>
-                    Brzy se vám ozveme s první ukázkou nebo potvrzením připomínky.
+                    Brzy se vám ozveme s první ukázkou.
                 </p>
             </div>
 
@@ -423,7 +327,6 @@
 
         <!-- KARTA 2: UKÁZKY & DŮKAZY -->
         <div class="glass-card faq-section">
-            
             <h2>Poslechněte si ukázky</h2>
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/xNoMuAGGvCk" title="Ukázka 1" frameborder="0" allowfullscreen></iframe>
@@ -456,7 +359,6 @@
                 <summary>Co přesně dostanu?</summary>
                 <p>Výsledkem je profesionálně znějící skladba (MP3/WAV) s textem na míru, profesionálním zpěvem a hudbou dle vašeho výběru. Do emailu vám příjde soubor MP3 + text + odkaz na neveřejné youtube video.</p>
             </details>
-
             <details>
                 <summary>Jaký je postup?</summary>
                 <p>
@@ -466,34 +368,39 @@
                     4. Hotovou skladbu dostanete e-mailem s možností 1 úpravy zdarma.
                 </p>
             </details>
-
             <details>
                 <summary>Kolik to stojí?</summary>
-                <p>Základní balíček stojí 999 Kč. Do 48h obdržíte MP3 a text emailem + youtube odkaz na písničku s vaší fotkou nebo námi vytvořeným obrázkem.</p>
+                <p>Základní balíček stojí 999 Kč. Platíte až po schválení ukázky. Nic neriskujete.</p>
             </details>
-
             <details>
                 <summary>Doplňkové služby <span class="upsell-tag">TIP</span></summary>
-                <p>
-                    • Video slideshow z fotek +390 Kč<br>
-                    • Expresní dodání (do 12h) +590 Kč <br>
-                    • Druhá verze písničky v jiném stylu +190 Kč<br>
-                    • Nahrání na Spotify/Apple music (10 dní) +490 Kč <br>
-                    • Dárkový poukaz základní balíček 999 Kč 
-                </p>
+                <p>• Video slideshow z fotek +390 Kč<br>• Expresní dodání (do 12h) +590 Kč <br>• Nahrání na Spotify/Apple music (10 dní) +490 Kč</p>
             </details>
-
         </div>
-
     </section>
 
-    <!-- === PATIČKA (PROVOZOVATEL VIDITELNÝ) === -->
+    <!-- === STICKY MOBILE CTA === -->
+    <div id="stickyCta" class="sticky-cta">
+        <button class="cta-button" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">
+            🎵 Vytvořit píseň (999 Kč)
+        </button>
+    </div>
+
+    <!-- === FOMO NOTIFICATION === -->
+    <div id="fomoPopup" class="fomo-popup">
+        <div class="fomo-icon"><i class="fas fa-music"></i></div>
+        <div class="fomo-text">
+            <span id="fomoMsg">Petr z Prahy právě poptal píseň.</span>
+            <span class="fomo-time">před 2 minutami</span>
+        </div>
+    </div>
+
+    <!-- === PATIČKA === -->
     <footer class="site-footer">
         <div style="max-width: 800px; margin: 0 auto;">
             <p><strong>© 2026 RomantickáPísnička.cz</strong></p>
             <p>Provozovatel: <strong>Pavel Szajter</strong> | IČ: <strong>05908795</strong></p>
-            <p>Sídlo: Zahradní 552, Orlová 735 14</p>
-            <p>Zapsán v živnostenském rejstříku.</p>
+            <p>Sídlo: Zahradní 552, Orlová 735 14 | Zapsán v živnostenském rejstříku.</p>
             <p style="margin-top: 15px;">
                 <span class="privacy-link" onclick="openModal('privacyModal')">Ochrana osobních údajů</span> | 
                 <a href="mailto:info@romantickapisnicka.cz" style="color: #888; text-decoration: none;">info@romantickapisnicka.cz</a>
@@ -503,155 +410,115 @@
 
     <!-- === COOKIE BAR === -->
     <div id="cookieBar" class="cookie-bar">
-        <div class="cookie-text">
-            Používáme cookies a analytické nástroje, abychom pro vás zlepšili web. Vaše soukromí respektujeme.
-        </div>
+        <div class="cookie-text">Používáme cookies a analytické nástroje, abychom pro vás zlepšili web. Vaše soukromí respektujeme.</div>
         <div class="cookie-buttons">
             <button class="btn-accept" onclick="acceptCookies()">Souhlasím</button>
             <button class="btn-reject" onclick="rejectCookies()">Odmítnout</button>
         </div>
     </div>
 
-    <!-- === MODAL: GDPR === -->
+    <!-- === MODALS === -->
     <div id="privacyModal" class="modal-overlay" onclick="if(event.target === this) closeModal('privacyModal')">
         <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
             <h3 style="color: var(--gold); margin-top: 0;">Ochrana osobních údajů</h3>
             <p style="font-size: 0.8rem; line-height: 1.5;">
-                <strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795, Orlová.<br><br>
-                <strong>2. Účel zpracování:</strong> Údaje (email, příběh, datum) zpracováváme za účelem plnění smlouvy a zaslání připomínky. Technická data (typ zařízení, prohlížeč) sbíráme pro zajištění funkčnosti, bezpečnosti a analytiku webu.<br><br>
-                <strong>3. Cookies:</strong> Analytické nástroje spouštíme až po vašem souhlasu.<br><br>
-                <strong>4. Práva:</strong> Máte právo souhlas odvolat, požadovat výmaz. Kontakt: info@romantickapisnicka.cz.
+                <strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795.<br>
+                <strong>2. Účel zpracování:</strong> Plnění smlouvy a marketing (se souhlasem).<br>
+                <strong>3. Práva:</strong> Odvolání souhlasu na info@romantickapisnicka.cz.
             </p>
         </div>
     </div>
 
-    <!-- === MODAL: EXIT INTENT (SLEVA) === -->
     <div id="exitModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('exitModal')">&times;</span>
             <div id="exit-form-container">
                 <div class="discount-badge">SLEVA 10%</div>
-                <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive; margin-top:0;">Nechoďte s prázdnou!</h2>
-                <p style="font-size: 0.9rem; margin-bottom: 20px;">
-                    Teď se to nehodí? <strong>Uložte si termín</strong> a získejte 10% slevu na později.
-                </p>
-                
+                <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive;">Nechoďte s prázdnou!</h2>
+                <p style="font-size: 0.9rem;">Teď se to nehodí? Uložte si termín a získejte slevu.</p>
                 <form id="exitForm" action="https://formspree.io/f/xgoaengz" method="POST">
-                    <input type="hidden" name="typ_formulare" value="Exit_Popup_Sber_Dat">
+                    <input type="text" name="_gotcha" style="display:none">
+                    <input type="hidden" name="typ_formulare" value="Exit_Popup">
                     <input type="hidden" name="technicke_info" class="tech-info-input">
-                    
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Váš e-mail" required style="text-align:center;">
-                    </div>
-                    <div class="form-group" style="display:flex; gap:10px;">
-                        <input type="date" name="datum_udalosti" required style="flex:1;">
-                        <input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;">
-                    </div>
-                    <div class="checkbox-group" style="justify-content: center; text-align: center;">
-                        <input type="checkbox" name="marketing_souhlas" checked required>
-                        <span>Souhlasím s připomínkou a slevou.</span>
-                    </div>
-
+                    <div class="form-group"><input type="email" name="email" placeholder="Váš e-mail" required></div>
+                    <div class="form-group" style="display:flex;gap:10px;"><input type="date" name="datum_udalosti" required style="flex:1;"><input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;"></div>
+                    <div class="checkbox-group"><input type="checkbox" name="marketing_souhlas" checked required><span>Souhlasím s připomínkou.</span></div>
                     <button class="cta-button" type="submit">Uložit a získat slevu</button>
                     <div class="loading-spinner" id="spinner-exit"></div>
                 </form>
-                <p style="font-size: 0.7rem; color: #888; margin-top: 15px; cursor: pointer;" onclick="closeModal('exitModal')">Ne, děkuji.</p>
+                <p style="font-size:0.7rem; color:#888; margin-top:10px; cursor:pointer;" onclick="closeModal('exitModal')">Ne, děkuji.</p>
             </div>
-            
             <div id="success-message-exit" class="success-message">
-                <i class="fas fa-check-circle success-icon"></i>
-                <h3 style="margin-top:0;">Uloženo!</h3>
-                <p>Termín hlídáme. Slevu jsme poslali na e-mail.</p>
+                <i class="fas fa-check-circle success-icon"></i><h3>Uloženo!</h3><p>Slevu jsme poslali na e-mail.</p>
                 <button class="cta-button" onclick="closeModal('exitModal')">Zavřít</button>
             </div>
         </div>
     </div>
 
-    <!-- === LOGIC: ANALYTICS + FINGERPRINTING + AJAX === -->
+    <!-- === LOGIC === -->
     <script>
-        // --- GOOGLE ANALYTICS LOAD FUNCTION (Triggered only after consent) ---
+        // --- 1. ANALYTICS & COOKIES ---
         function loadAnalytics() {
             const script = document.createElement('script');
             script.src = "https://www.googletagmanager.com/gtag/js?id=G-ERPGQVLV5Y";
-            script.async = true;
-            document.head.appendChild(script);
-
+            script.async = true; document.head.appendChild(script);
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ERPGQVLV5Y');
-            console.log("Analytics Loaded");
+            gtag('js', new Date()); gtag('config', 'G-ERPGQVLV5Y');
         }
-
-        // --- COOKIE BAR LOGIC ---
         function checkCookies() {
             const consent = localStorage.getItem('cookieConsent');
-            if (!consent) {
-                document.getElementById('cookieBar').style.display = 'flex';
-            } else if (consent === 'accepted') {
-                loadAnalytics(); // Load immediately if already accepted
-            }
+            if (!consent) document.getElementById('cookieBar').style.display = 'flex';
+            else if (consent === 'accepted') loadAnalytics();
         }
-
         function acceptCookies() {
             localStorage.setItem('cookieConsent', 'accepted');
-            document.getElementById('cookieBar').style.display = 'none';
-            loadAnalytics();
+            document.getElementById('cookieBar').style.display = 'none'; loadAnalytics();
         }
-
         function rejectCookies() {
             localStorage.setItem('cookieConsent', 'rejected');
             document.getElementById('cookieBar').style.display = 'none';
         }
-
-        // Run check on load
         window.onload = checkCookies;
 
+        // --- 2. FOMO SOCIAL PROOF (Fake Notifications) ---
+        const fomoMessages = [
+            "Petr z Prahy právě poptal píseň.", "Jana (Brno) si objednala píseň k výročí.", 
+            "Tomáš právě vyplnil formulář.", "Lukáš odeslal poptávku pro přítelkyni."
+        ];
+        function showFomo() {
+            const msg = fomoMessages[Math.floor(Math.random() * fomoMessages.length)];
+            document.getElementById('fomoMsg').innerText = msg;
+            const popup = document.getElementById('fomoPopup');
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 5000); // Hide after 5s
+        }
+        // Start showing notifications after 10s, then every 40s
+        setTimeout(() => { showFomo(); setInterval(showFomo, 40000); }, 10000);
 
-        // --- FINGERPRINTING & FORM LOGIC ---
+        // --- 3. STICKY CTA LOGIC ---
+        window.addEventListener('scroll', () => {
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const scrollPos = window.scrollY;
+            const sticky = document.getElementById('stickyCta');
+            // Show sticky button only if scrolled past 400px AND on mobile
+            if (scrollPos > 400 && window.innerWidth < 769) sticky.classList.add('visible');
+            else sticky.classList.remove('visible');
+        });
+
+        // --- 4. FORM HANDLING & FINGERPRINTING ---
         let formSubmittedGlobal = false;
         let exitIntentShown = false;
 
         function collectVisitorInfo() {
-            const screenInfo = `${window.screen.width}x${window.screen.height}`;
-            const windowSize = `${window.innerWidth}x${window.innerHeight}`;
-            const language = navigator.language || navigator.userLanguage;
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const localTime = new Date().toLocaleString();
-            
             let os = "Neznámý";
-            if (navigator.userAgent.indexOf("Win") != -1) os = "Windows";
-            if (navigator.userAgent.indexOf("Mac") != -1) os = "MacOS";
-            if (navigator.userAgent.indexOf("Linux") != -1) os = "Linux";
-            if (navigator.userAgent.indexOf("Android") != -1) os = "Android";
-            if (navigator.userAgent.indexOf("like Mac") != -1) os = "iOS";
-
-            const referrer = document.referrer || "Přímá návštěva / Neznámý";
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            return `
-=== TECHNICKÉ INFO ===
-OS: ${os} | Browser: ${navigator.userAgent}
-Rozlišení: ${screenInfo} | Okno: ${windowSize}
-Jazyk: ${language} | Timezone: ${timezone}
-Čas odeslání: ${localTime}
-----------------------
-Ref: ${referrer}
-UTM Source: ${urlParams.get('utm_source') || '-'}
-UTM Medium: ${urlParams.get('utm_medium') || '-'}
-            `;
+            if (navigator.userAgent.indexOf("Win")!=-1) os="Windows";
+            if (navigator.userAgent.indexOf("Mac")!=-1) os="MacOS";
+            if (navigator.userAgent.indexOf("Android")!=-1) os="Android";
+            if (navigator.userAgent.indexOf("like Mac")!=-1) os="iOS";
+            return `OS: ${os} | Rozlišení: ${window.screen.width}x${window.screen.height} | Ref: ${document.referrer}`;
         }
-
-        function openTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         async function handleFormSubmit(event, formId, spinnerId, containerId, successId) {
             event.preventDefault(); 
@@ -659,67 +526,42 @@ UTM Medium: ${urlParams.get('utm_medium') || '-'}
             const spinner = document.getElementById(spinnerId);
             const button = form.querySelector('button');
             
-            // Inject Tech Data
+            // FINGERPRINT LOGIC (ONLY IF CONSENTED)
             const techInput = form.querySelector('.tech-info-input');
-            if (techInput) techInput.value = collectVisitorInfo();
-            
-            button.style.display = 'none';
-            spinner.style.display = 'block';
+            if (techInput) {
+                techInput.value = (localStorage.getItem('cookieConsent') === 'accepted') 
+                    ? collectVisitorInfo() : "No Consent.";
+            }
 
+            button.style.display = 'none'; spinner.style.display = 'block';
             const data = new FormData(form);
             try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
+                const response = await fetch(form.action, { method: form.method, body: data, headers: {'Accept': 'application/json'} });
                 if (response.ok) {
                     formSubmittedGlobal = true; 
-                    if (containerId === 'exit-form-container') {
-                         document.getElementById(containerId).style.display = 'none';
-                         document.getElementById(successId).style.display = 'flex';
-                    } else {
-                         document.getElementById(containerId).style.display = 'none';
-                         document.getElementById(successId).style.display = 'flex';
-                    }
-                } else {
-                    alert("Chyba při odesílání. Zkuste to prosím znovu.");
-                    button.style.display = 'block';
-                    spinner.style.display = 'none';
-                }
-            } catch (error) {
-                alert("Chyba připojení.");
-                button.style.display = 'block';
-                spinner.style.display = 'none';
-            }
+                    document.getElementById(containerId).style.display = 'none';
+                    document.getElementById(successId).style.display = 'flex';
+                } else { alert("Chyba. Zkuste znovu."); button.style.display = 'block'; spinner.style.display = 'none'; }
+            } catch { alert("Chyba připojení."); button.style.display = 'block'; spinner.style.display = 'none'; }
         }
 
-        // Assign listeners
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            handleFormSubmit(e, 'orderForm', 'spinner-order', 'form-container-main', 'success-message-main');
-        });
-        document.getElementById('remindForm').addEventListener('submit', function(e) {
-            handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main');
-        });
-        document.getElementById('exitForm').addEventListener('submit', function(e) {
-            handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit');
-        });
+        document.getElementById('orderForm').addEventListener('submit', (e) => handleFormSubmit(e, 'orderForm', 'spinner-order', 'form-container-main', 'success-message-main'));
+        document.getElementById('remindForm').addEventListener('submit', (e) => handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main'));
+        document.getElementById('exitForm').addEventListener('submit', (e) => handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit'));
 
-        // Exit Intent
-        document.addEventListener('mouseleave', function(e) {
-            if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) {
-                openModal('exitModal');
-                exitIntentShown = true;
-            }
-        });
-        
-        // Mobile fallback timer (40s)
-        setTimeout(() => {
-           if (!exitIntentShown && !formSubmittedGlobal) {
-               // openModal('exitModal'); // Optional for mobile
-           }
-        }, 40000);
+        // --- 5. TABS & MODALS ---
+        function openTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active');
+        }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
+        // --- 6. EXIT INTENT ---
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) { openModal('exitModal'); exitIntentShown = true; }
+        });
     </script>
 </body>
 </html>
