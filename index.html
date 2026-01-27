@@ -128,6 +128,12 @@
         .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 0.75rem; color: #ccc; margin-top: 10px; text-align: left; }
         .checkbox-group input { width: auto; margin-top: 3px; }
 
+        /* Upsell specific styling */
+        .upsell-group { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+        .upsell-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #ddd; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; border: 1px solid rgba(244, 208, 139, 0.1); cursor: pointer; transition: background 0.2s; }
+        .upsell-item:hover { background: rgba(255,255,255,0.1); }
+        .upsell-item input { margin: 0; width: 16px; height: 16px; cursor: pointer; }
+
         button.cta-button {
             width: 100%; padding: 15px; margin-top: 15px; border: none; border-radius: 8px;
             background: linear-gradient(135deg, var(--gold), #c99f50);
@@ -153,21 +159,6 @@
         @media (max-width: 768px) {
             .sticky-cta.visible { display: block; }
         }
-
-        /* --- FOMO NOTIFICATION (Social Proof) --- */
-        .fomo-popup {
-            position: fixed; bottom: 20px; left: 20px; z-index: 950;
-            background: rgba(14, 28, 54, 0.9); border: 1px solid var(--gold);
-            border-radius: 10px; padding: 12px 15px;
-            display: flex; align-items: center; gap: 12px;
-            transform: translateX(-150%); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 300px;
-        }
-        .fomo-popup.show { transform: translateX(0); }
-        .fomo-icon { background: var(--pink); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
-        .fomo-text { font-size: 0.75rem; color: #fff; text-align: left; line-height: 1.3; }
-        .fomo-text strong { color: var(--gold); }
-        .fomo-time { font-size: 0.65rem; color: #aaa; display: block; margin-top: 2px;}
 
         /* --- FAQ & FOOTER --- */
         details { background: rgba(0, 0, 0, 0.3); margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(244, 208, 139, 0.1); }
@@ -251,6 +242,25 @@
                                 <option value="cinematic">Filmový orchestr</option>
                                 <option value="other">Jiné - specifikujte v Příběhu písně</option>
                             </select>
+                        </div>
+
+                        <!-- UPSELL SEKCE -->
+                        <div class="form-group">
+                            <label>Doplňkové služby</label>
+                            <div class="upsell-group">
+                                <label class="upsell-item">
+                                    <input type="checkbox" name="upsell_video_slideshow" value="ano">
+                                    <span>Video slideshow z fotek (+390 Kč)</span>
+                                </label>
+                                <label class="upsell-item">
+                                    <input type="checkbox" name="upsell_express" value="ano">
+                                    <span>Expresní dodání (do 12h) (+590 Kč)</span>
+                                </label>
+                                <label class="upsell-item">
+                                    <input type="checkbox" name="upsell_streaming" value="ano">
+                                    <span>Nahrání na Spotify/Apple Music (+490 Kč)</span>
+                                </label>
+                            </div>
                         </div>
 
                         <button type="submit" class="cta-button">Získat ukázku zdarma</button>
@@ -372,10 +382,6 @@
                 <summary>Kolik to stojí?</summary>
                 <p>Základní balíček stojí 999 Kč. Platíte až po schválení ukázky. Nic neriskujete.</p>
             </details>
-            <details>
-                <summary>Doplňkové služby <span class="upsell-tag">TIP</span></summary>
-                <p>• Video slideshow z fotek +390 Kč<br>• Expresní dodání (do 12h) +590 Kč <br>• Nahrání na Spotify/Apple music (10 dní) +490 Kč</p>
-            </details>
         </div>
     </section>
 
@@ -384,15 +390,6 @@
         <button class="cta-button" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">
             🎵 Vytvořit píseň (999 Kč)
         </button>
-    </div>
-
-    <!-- === FOMO NOTIFICATION === -->
-    <div id="fomoPopup" class="fomo-popup">
-        <div class="fomo-icon"><i class="fas fa-music"></i></div>
-        <div class="fomo-text">
-            <span id="fomoMsg">Petr z Prahy právě poptal píseň.</span>
-            <span class="fomo-time">před 2 minutami</span>
-        </div>
     </div>
 
     <!-- === PATIČKA === -->
@@ -420,7 +417,7 @@
     </div>
 
     <!-- === MODALS === -->
-        <!-- === MODAL: GDPR (PLNÁ VERZE PRO SKLIK/SEZNAM) === -->
+    <!-- === MODAL: GDPR === -->
     <div id="privacyModal" class="modal-overlay" onclick="if(event.target === this) closeModal('privacyModal')">
         <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto; color: #ddd; font-size: 0.85rem;">
             <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
@@ -510,42 +507,55 @@
         }
         window.onload = checkCookies;
 
-        // --- 2. FOMO SOCIAL PROOF (Fake Notifications) ---
-        const fomoMessages = [
-            "Petr z Prahy právě poptal píseň.", "Jana (Brno) si objednala píseň k výročí.", 
-            "Tomáš právě vyplnil formulář.", "Lukáš odeslal poptávku pro přítelkyni."
-        ];
-        function showFomo() {
-            const msg = fomoMessages[Math.floor(Math.random() * fomoMessages.length)];
-            document.getElementById('fomoMsg').innerText = msg;
-            const popup = document.getElementById('fomoPopup');
-            popup.classList.add('show');
-            setTimeout(() => popup.classList.remove('show'), 5000); // Hide after 5s
-        }
-        // Start showing notifications after 10s, then every 40s
-        setTimeout(() => { showFomo(); setInterval(showFomo, 40000); }, 10000);
-
-        // --- 3. STICKY CTA LOGIC ---
+        // --- 2. STICKY CTA LOGIC ---
         window.addEventListener('scroll', () => {
             const heroHeight = document.querySelector('.hero').offsetHeight;
             const scrollPos = window.scrollY;
             const sticky = document.getElementById('stickyCta');
-            // Show sticky button only if scrolled past 400px AND on mobile
             if (scrollPos > 400 && window.innerWidth < 769) sticky.classList.add('visible');
             else sticky.classList.remove('visible');
         });
 
-        // --- 4. FORM HANDLING & FINGERPRINTING ---
+        // --- 3. FORM HANDLING & COMPLEX FINGERPRINTING ---
         let formSubmittedGlobal = false;
         let exitIntentShown = false;
 
-        function collectVisitorInfo() {
-            let os = "Neznámý";
-            if (navigator.userAgent.indexOf("Win")!=-1) os="Windows";
-            if (navigator.userAgent.indexOf("Mac")!=-1) os="MacOS";
-            if (navigator.userAgent.indexOf("Android")!=-1) os="Android";
-            if (navigator.userAgent.indexOf("like Mac")!=-1) os="iOS";
-            return `OS: ${os} | Rozlišení: ${window.screen.width}x${window.screen.height} | Ref: ${document.referrer}`;
+        // Komplexní sběr dat (pouze pokud je souhlas)
+        function getComplexFingerprint() {
+            try {
+                const nav = window.navigator;
+                const screen = window.screen;
+                let data = [];
+
+                // Základní identifikace
+                data.push("UA: " + nav.userAgent);
+                data.push("Lang: " + (nav.language || nav.userLanguage));
+                
+                // Obrazovka
+                data.push(`Screen: ${screen.width}x${screen.height}`);
+                data.push(`ColorDepth: ${screen.colorDepth}`);
+                data.push(`Avail: ${screen.availWidth}x${screen.availHeight}`);
+
+                // Hardware & Concurrency
+                if (nav.hardwareConcurrency) data.push(`Cores: ${nav.hardwareConcurrency}`);
+                if (nav.deviceMemory) data.push(`RAM: ${nav.deviceMemory}GB`);
+                
+                // Timezone
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                data.push(`TZ: ${tz}`);
+
+                // Capabilities
+                const touch = ('ontouchstart' in window) || (nav.maxTouchPoints > 0);
+                data.push(`Touch: ${touch}`);
+
+                // Platform & Referrer
+                data.push(`Platform: ${nav.platform}`);
+                data.push(`Ref: ${document.referrer}`);
+
+                return data.join(" | ");
+            } catch (e) {
+                return "Error collecting fingerprint";
+            }
         }
 
         async function handleFormSubmit(event, formId, spinnerId, containerId, successId) {
@@ -554,11 +564,17 @@
             const spinner = document.getElementById(spinnerId);
             const button = form.querySelector('button');
             
-            // FINGERPRINT LOGIC (ONLY IF CONSENTED)
+            // FINGERPRINT LOGIC
             const techInput = form.querySelector('.tech-info-input');
             if (techInput) {
-                techInput.value = (localStorage.getItem('cookieConsent') === 'accepted') 
-                    ? collectVisitorInfo() : "No Consent.";
+                const consent = localStorage.getItem('cookieConsent');
+                if (consent === 'accepted') {
+                    // Odeslat kompletní otisk
+                    techInput.value = getComplexFingerprint();
+                } else {
+                    // Neodesílat nic nebo jen info o neudělení souhlasu
+                    techInput.value = "GDPR: Souhlas neudělen (No Consent)";
+                }
             }
 
             button.style.display = 'none'; spinner.style.display = 'block';
@@ -577,7 +593,7 @@
         document.getElementById('remindForm').addEventListener('submit', (e) => handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main'));
         document.getElementById('exitForm').addEventListener('submit', (e) => handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit'));
 
-        // --- 5. TABS & MODALS ---
+        // --- 4. TABS & MODALS ---
         function openTab(id) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -586,14 +602,10 @@
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // --- 6. EXIT INTENT ---
+        // --- 5. EXIT INTENT ---
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) { openModal('exitModal'); exitIntentShown = true; }
         });
     </script>
 </body>
 </html>
-
-
-
-
