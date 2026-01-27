@@ -3,22 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Analytics -->
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="lBu/Er0K5pX2TzWEuRli1A" async></script>
-    <!-- === PRELOAD IMAGE (RYCHLOST) === -->
-    <link rel="preload" href="bckg wide.png" as="image" media="(min-width: 769px)">
-    <link rel="preload" href="bckg portrait.png" as="image" media="(max-width: 768px)">
-
-    <!-- === SEO === -->
-    <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu. Dojemný dárek k výročí, svatbě nebo narozeninám.">
-    <meta name="keywords" content="píseň na míru, originální dárek, romantická píseň, skladba na zakázku, dárek k výročí, svatební píseň">
-    <meta name="author" content="RomantickáPísnička.cz">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.romantickapisnicka.cz/">
-    <meta property="og:title" content="Darujte píseň, která řekne vše ❤️ | RomantickáPísnička.cz">
-    <meta property="og:description" content="Složíme originální hudbu a text z vašeho příběhu. Poslechněte si ukázku a nechte si vytvořit nezapomenutelný dárek.">
     
+    <!-- SEO -->
+    <meta name="description" content="Originální píseň na míru jako dárek. Složíme hudbu i text z vašeho příběhu.">
     <title>Romantická Písnička | Prémiová hudba na míru</title>
     
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -38,29 +30,33 @@
             font-family: 'Montserrat', sans-serif;
             color: white; background-color: var(--bg-color-fallback);
             scroll-behavior: smooth;
+            overflow-x: hidden; /* Důležité pro částice */
         }
 
-        /* --- HERO --- */
+        /* --- HERO & BACKGROUND --- */
         .hero {
             position: relative; width: 100%; display: flex; flex-direction: column;
             align-items: center; justify-content: flex-start;
             padding: 40px 20px; gap: 40px; min-height: 100vh;
-            background: url('bckg wide.png') no-repeat center center;
-            background-size: cover; background-attachment: fixed;
-            padding-bottom: 150px;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
-            z-index: 1; pointer-events: none;
+            background: linear-gradient(rgba(5,10,20,0.4), rgba(5,10,20,0.8)), url('bckg wide.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            padding-bottom: 150px; overflow: hidden;
         }
 
-        @media (max-width: 768px) {
-            .hero {
-                background: url('bckg portrait.png') no-repeat top center;
-                background-size: 100% auto; background-attachment: scroll; 
-                padding-top: 100px; 
-            }
+        /* --- PARTICLES (ANIMACE POZADÍ) --- */
+        .particle {
+            position: absolute; bottom: -50px;
+            color: rgba(244, 208, 139, 0.4); /* Gold transparent */
+            font-size: 20px; pointer-events: none; z-index: 1;
+            animation: floatUp linear infinite;
+        }
+        .particle.heart { color: rgba(255, 155, 181, 0.3); /* Pink transparent */ }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
         /* --- KARTY --- */
@@ -73,6 +69,22 @@
             width: 100%; max-width: 500px; padding: 30px 25px;
             text-align: center; transition: transform 0.3s ease;
         }
+
+        /* --- STUDIO STATUS BAR (NOVÉ FOMO) --- */
+        .studio-status {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(244, 208, 139, 0.2);
+            padding: 6px 12px; border-radius: 20px;
+            font-size: 0.75rem; color: #ccc; margin-bottom: 20px;
+        }
+        .status-dot {
+            width: 8px; height: 8px; background-color: #2ecc71; /* Green */
+            border-radius: 50%; box-shadow: 0 0 5px #2ecc71;
+            animation: blink 2s infinite;
+        }
+        .status-warning .status-dot { background-color: var(--gold); box-shadow: 0 0 5px var(--gold); }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         /* --- TABS --- */
         .tabs {
@@ -92,25 +104,10 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- UI ELEMENTS --- */
-        .video-container {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            border-radius: 12px; margin-bottom: 25px;
-            border: 1px solid rgba(244, 208, 139, 0.3); background: #000;
-        }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        .review-box {
-            background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px;
-            margin-bottom: 15px; border-left: 3px solid var(--gold); text-align: left;
-        }
-        .stars { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
-        .review-text { font-style: italic; font-size: 0.9rem; color: #eee; margin-bottom: 5px; }
-        .review-author { font-weight: bold; font-size: 0.8rem; color: var(--pink); text-align: right; }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--gold); margin: 0 0 10px 0; line-height: 1.2; }
+        /* --- TYPOGRAPHY --- */
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--gold); margin: 0 0 5px 0; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         h2 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--gold); margin: 20px 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
-        p.subtitle { font-size: 0.95rem; margin-bottom: 20px; color: #f0f0f0; line-height: 1.6; }
+        p.subtitle { font-size: 0.95rem; margin-bottom: 15px; color: #f0f0f0; line-height: 1.6; }
         .highlight { color: var(--pink); font-weight: 700; }
 
         /* --- FORMULÁŘ --- */
@@ -122,86 +119,101 @@
             border: 1px solid rgba(244, 208, 139, 0.3);
             background: rgba(0, 0, 0, 0.4); color: white;
             font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        input:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(0,0,0,0.6); }
+        input:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(0,0,0,0.6); box-shadow: 0 0 8px rgba(244, 208, 139, 0.2); }
 
         .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 0.75rem; color: #ccc; margin-top: 10px; text-align: left; }
-        .checkbox-group input { width: auto; margin-top: 3px; }
 
-        /* Upsell specific styling */
+        /* UPSELL STYLE */
         .upsell-group { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
         .upsell-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #ddd; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; border: 1px solid rgba(244, 208, 139, 0.1); cursor: pointer; transition: background 0.2s; }
         .upsell-item:hover { background: rgba(255,255,255,0.1); }
-        .upsell-item input { margin: 0; width: 16px; height: 16px; cursor: pointer; }
+        .upsell-item input { margin: 0; width: 16px; height: 16px; accent-color: var(--gold); }
 
+        /* CTA BUTTON PULSE */
         button.cta-button {
             width: 100%; padding: 15px; margin-top: 15px; border: none; border-radius: 8px;
             background: linear-gradient(135deg, var(--gold), #c99f50);
             color: #0e1c36; font-weight: 700; font-size: 1.1rem; cursor: pointer;
             text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(244, 208, 139, 0.3); transition: transform 0.2s;
+            animation: pulseBtn 3s infinite;
         }
-        button.cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244, 208, 139, 0.5); }
+        button.cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244, 208, 139, 0.5); animation: none; }
+        
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(244, 208, 139, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(244, 208, 139, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 208, 139, 0); }
+        }
 
         /* TRUST BADGES */
         .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 15px; opacity: 0.7; font-size: 0.7rem; color: #ccc; }
         .trust-item { display: flex; align-items: center; gap: 5px; }
 
-        /* --- STICKY MOBILE CTA (MARKETING BOOST) --- */
-        .sticky-cta {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(14, 28, 54, 0.95); border-top: 1px solid var(--gold);
-            padding: 12px; z-index: 900; display: none; text-align: center;
-            backdrop-filter: blur(5px);
+        /* VIDEO & REVIEWS */
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 12px; margin-bottom: 25px;
+            border: 1px solid rgba(244, 208, 139, 0.3); background: #000;
         }
-        .sticky-cta button { width: 100%; padding: 12px; margin: 0; font-size: 1rem; }
-        /* Zobrazit jen na mobilu a když uživatel odscrolloval */
-        @media (max-width: 768px) {
-            .sticky-cta.visible { display: block; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        
+        .review-box {
+            background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px;
+            margin-bottom: 15px; border-left: 3px solid var(--gold); text-align: left;
         }
+        .stars { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
+        .review-text { font-style: italic; font-size: 0.9rem; color: #eee; margin-bottom: 5px; }
+        .review-author { font-weight: bold; font-size: 0.8rem; color: var(--pink); text-align: right; }
 
-        /* --- FAQ & FOOTER --- */
+        /* FOOTER & EXTRAS */
+        .site-footer { width: 100%; background: #02040a; color: #888; padding: 40px 20px; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; position: relative; z-index: 20; }
+        .sticky-cta { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(14, 28, 54, 0.95); border-top: 1px solid var(--gold); padding: 12px; z-index: 900; display: none; text-align: center; backdrop-filter: blur(5px); }
+        .sticky-cta.visible { display: block; } /* Mobile only logic via JS */
+        
+        /* DETAILS/FAQ */
         details { background: rgba(0, 0, 0, 0.3); margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(244, 208, 139, 0.1); }
         summary { padding: 15px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center;}
         summary::after { content: '+'; color: var(--gold); font-weight: bold; }
         details[open] summary::after { transform: rotate(45deg); }
         details p, details ul { padding: 0 15px 15px 15px; margin: 0; font-size: 0.9rem; color: #ddd; text-align: left; line-height: 1.5; }
-        details ul { padding-left: 35px; }
 
-        .site-footer { width: 100%; background: #02040a; color: #888; padding: 40px 20px; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; position: relative; z-index: 20; }
-        .site-footer strong { color: #ccc; }
-        .privacy-link { color: var(--gold); text-decoration: underline; cursor: pointer; }
-
-        /* --- MODALS & COOKIES --- */
+        /* MODALS & SPINNERS */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal-content { background: #0e1c36; border: 1px solid var(--gold); padding: 25px; border-radius: 15px; max-width: 450px; width: 90%; text-align: center; position: relative; color: white; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #aaa; }
         .discount-badge { display: inline-block; background: var(--pink); color: #0e1c36; padding: 5px 10px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; }
+        .loading-spinner { display: none; border: 4px solid rgba(255,255,255,0.1); border-left: 4px solid var(--gold); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 10px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success-message { display: none; flex-direction: column; align-items: center; padding: 20px; animation: fadeIn 0.5s; }
+        .success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; }
 
+        /* COOKIE BAR */
         .cookie-bar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5, 10, 20, 0.98); border-top: 1px solid var(--gold); padding: 15px; z-index: 2000; flex-direction: column; align-items: center; text-align: center; }
         .cookie-buttons { display: flex; gap: 10px; margin-top: 10px;}
         .btn-accept { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 5px; border:none; font-weight:bold; cursor:pointer;}
         .btn-reject { background: transparent; color: #888; border: 1px solid #444; padding: 8px 15px; border-radius: 5px; cursor:pointer;}
         @media (min-width: 768px) { .cookie-bar { flex-direction: row; justify-content: center; gap: 20px; text-align: left;} .cookie-buttons {margin-top:0;} }
-
-        /* Loading Spinner */
-        .loading-spinner { display: none; border: 4px solid rgba(255,255,255,0.1); border-left: 4px solid var(--gold); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 10px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .success-message { display: none; flex-direction: column; align-items: center; padding: 20px; animation: fadeIn 0.5s; }
-        .success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; }
-        .upsell-tag { background-color: var(--gold); color: #0e1c36; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
-
-        /* Scroll Hint */
-        .scroll-hint { margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.6); animation: bounce 2s infinite; cursor: pointer; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
     </style>
 </head>
 <body>
+
+    <!-- KONTEJNER PRO ANIMOVANÉ ČÁSTICE -->
+    <div id="particles-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 2;"></div>
 
     <section class="hero">
         <div class="glass-card">
             <div id="form-container-main">
                 <h1>Vaše píseň lásky</h1>
+                
+                <!-- NOVÉ FOMO: STUDIO STATUS -->
+                <div class="studio-status status-warning">
+                    <span class="status-dot"></span>
+                    <span>Kapacita studia na tento týden: <strong style="color:white">Z 85 % obsazeno</strong></span>
+                </div>
+
                 <p class="subtitle">
                     Originální dárek, který dojme k slzám. <br>
                     <span class="highlight">Hudba a text z vašeho příběhu.</span>
@@ -216,9 +228,7 @@
                 <!-- TAB 1: OBJEDNÁVKA -->
                 <div id="order" class="tab-content active">
                     <form id="orderForm" action="https://formspree.io/f/xgoaengz" method="POST">
-                        <!-- Honeypot (Anti-spam) -->
                         <input type="text" name="_gotcha" style="display:none">
-                        
                         <input type="hidden" name="typ_formulare" value="Poptavka_Pisne">
                         <input type="hidden" name="technicke_info" class="tech-info-input">
                         
@@ -265,15 +275,14 @@
 
                         <button type="submit" class="cta-button">Získat ukázku zdarma</button>
                         
-                        <!-- Trust Badges -->
                         <div class="trust-badges">
                             <div class="trust-item"><i class="fas fa-shield-alt"></i> Bezpečný formulář</div>
                             <div class="trust-item"><i class="fas fa-music"></i> Studiová kvalita</div>
                         </div>
 
                         <div class="loading-spinner" id="spinner-order"></div>
-                        <div class="privacy-note">
-                            Odesláním souhlasíte se <span class="privacy-link" onclick="openModal('privacyModal')">Zpracováním osobních údajů</span>.
+                        <div class="privacy-note" style="margin-top:10px; font-size:0.7rem; color:#aaa;">
+                            Odesláním souhlasíte se <span style="text-decoration:underline; cursor:pointer;" onclick="openModal('privacyModal')">Zpracováním osobních údajů</span>.
                         </div>
                     </form>
                 </div>
@@ -290,11 +299,11 @@
                         <input type="hidden" name="technicke_info" class="tech-info-input">
 
                         <div class="form-group">
-                            <label>Kdy je událost? <span class="optional">Datum výročí/narozenin</span></label>
+                            <label>Kdy je událost?</label>
                             <input type="date" name="datum_udalosti" required>
                         </div>
                         <div class="form-group">
-                            <label>Co slavíte? <span class="optional">Např. Výročí svatby</span></label>
+                            <label>Co slavíte?</label>
                             <input type="text" name="nazev_udalosti" placeholder="Výročí, Narozeniny...">
                         </div>
                         <div class="form-group">
@@ -306,7 +315,7 @@
                             <span>Souhlasím se zasláním připomínky a občasných slevových akcí.</span>
                         </div>
 
-                        <button type="submit" class="cta-button" style="background: linear-gradient(135deg, #ddd, #bbb);">Nastavit připomínku</button>
+                        <button type="submit" class="cta-button" style="background: linear-gradient(135deg, #ddd, #bbb); animation:none; box-shadow:none;">Nastavit připomínku</button>
                         <div class="loading-spinner" id="spinner-remind"></div>
                     </form>
                 </div>
@@ -323,19 +332,18 @@
                 </p>
             </div>
 
-            <!-- SOCIAL LINKS -->
             <div class="social-links" style="margin-top: 20px; font-size: 1.4rem;">
                 <a href="https://www.instagram.com/romantickapisnicka/" target="_blank" style="color:var(--gold); margin:0 12px;"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.facebook.com/profile.php?id=61587079344196" target="_blank" style="color:var(--gold); margin:0 12px;"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.tiktok.com/@romantickapisnicka?_r=1&_t=ZS-93IZidfwmWn" target="_blank" style="color:var(--gold); margin:0 12px;"><i class="fab fa-tiktok"></i></a>
             </div>
 
-            <div class="scroll-hint" onclick="document.querySelector('.faq-section').scrollIntoView({behavior: 'smooth'})">
+            <div style="margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.6); cursor: pointer;" onclick="document.querySelector('.faq-section').scrollIntoView({behavior: 'smooth'})">
                 <i class="fas fa-chevron-down"></i> Poslechněte si ukázky níže
             </div>
         </div>
 
-        <!-- KARTA 2: UKÁZKY & DŮKAZY -->
+        <!-- INFO SECTION -->
         <div class="glass-card faq-section">
             <h2>Poslechněte si ukázky</h2>
             <div class="video-container">
@@ -356,11 +364,6 @@
                     <div class="stars">★★★★★</div>
                     <div class="review-text">"Neuvěřitelná rychlost a profesionální přístup. Výsledek předčil očekávání!"</div>
                     <div class="review-author">– Jana M.</div>
-                </div>
-                <div class="review-box">
-                    <div class="stars">★★★★★</div>
-                    <div class="review-text">"Skvělý nápad na výročí. Děkujeme za krásnou vzpomínku."</div>
-                    <div class="review-author">– Tomáš V.</div>
                 </div>
             </div>
 
@@ -385,14 +388,14 @@
         </div>
     </section>
 
-    <!-- === STICKY MOBILE CTA === -->
+    <!-- STICKY CTA -->
     <div id="stickyCta" class="sticky-cta">
-        <button class="cta-button" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">
-            🎵 Vytvořit píseň (999 Kč)
+        <button class="cta-button" style="padding:10px; margin:0;" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">
+            🎵 Vytvořit píseň (Kapacita mizí)
         </button>
     </div>
 
-    <!-- === PATIČKA === -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div style="max-width: 800px; margin: 0 auto;">
             <p><strong>© 2026 RomantickáPísnička.cz</strong></p>
@@ -402,12 +405,10 @@
                 <span class="privacy-link" onclick="openModal('privacyModal')">Ochrana osobních údajů</span> | 
                 <a href="mailto:info@romantickapisnicka.cz" style="color: #888; text-decoration: none;">info@romantickapisnicka.cz</a>
             </p>
-            <p>Soutěž naleznete také na největším soutěžním portálu v ČR - <a href="http://www.souteze.cz/">Soutěže</a>.cz a na <a href="http://www.websouteze.cz">Websoutěže</a>.cz
-</p>
         </div>
     </footer>
 
-    <!-- === COOKIE BAR === -->
+    <!-- MODALS -->
     <div id="cookieBar" class="cookie-bar">
         <div class="cookie-text">Používáme cookies a analytické nástroje, abychom pro vás zlepšili web. Vaše soukromí respektujeme.</div>
         <div class="cookie-buttons">
@@ -416,74 +417,81 @@
         </div>
     </div>
 
-    <!-- === MODALS === -->
-    <!-- === MODAL: GDPR === -->
     <div id="privacyModal" class="modal-overlay" onclick="if(event.target === this) closeModal('privacyModal')">
         <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto; color: #ddd; font-size: 0.85rem;">
             <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
-            
             <h3 style="color: var(--gold); margin-top: 0; text-align: center; margin-bottom: 20px;">Zásady zpracování osobních údajů</h3>
-            
-            <p><strong>1. Správce údajů</strong><br>
-            Pavel Szajter, IČ: 05908795, se sídlem Zahradní 552, 735 14 Orlová (zapsán v živnostenském rejstříku).</p>
-
-            <p><strong>2. Jaké údaje zpracováváme</strong><br>
-            <ul>
-                <li><strong>Kontaktní údaje:</strong> E-mail (pro komunikaci a dodání služby).</li>
-                <li><strong>Obsahové údaje:</strong> Příběh písně, jména, data výročí (pro vytvoření díla).</li>
-                <li><strong>Technické údaje:</strong> IP adresa, typ zařízení, prohlížeč (pro zajištění bezpečnosti webu, prevenci spamu a analytiku).</li>
-            </ul>
-            </p>
-
-            <p><strong>3. Účel a právní důvod zpracování</strong><br>
-            <ul>
-                <li><strong>Plnění smlouvy:</strong> Vytvoření a dodání písně na základě vaší objednávky.</li>
-                <li><strong>Oprávněný zájem:</strong> Zajištění funkčnosti webu a ochrana před boty (technické údaje).</li>
-                <li><strong>Souhlas:</strong> Zasílání připomínek výročí a marketingových newsletterů (pouze pokud jste zaškrtli souhlas nebo jste naším zákazníkem).</li>
-            </ul>
-            </p>
-
-            <p><strong>4. Komu údaje předáváme (Zpracovatelé)</strong><br>
-            Pro zajištění chodu webu využíváme prověřené služby: Formspree Inc. (formuláře), Google Ireland Ltd. (analytika), případně účetní a daňoví poradci. Data neprodáváme třetím stranám.</p>
-
-            <p><strong>5. Doba uložení</strong><br>
-            Údaje pro plnění smlouvy uchováváme po dobu vyžadovanou zákonem (fakturace). Údaje pro marketing uchováváme do odvolání souhlasu, nejdéle však 3 roky.</p>
-
-            <p><strong>6. Vaše práva</strong><br>
-            Máte právo kdykoliv odvolat souhlas (odhlášením v emailu nebo napsáním na info@romantickapisnicka.cz), požadovat výpis evidovaných údajů, jejich opravu nebo výmaz ("právo být zapomenut"). Máte právo podat stížnost u ÚOOÚ.</p>
+            <p><strong>1. Správce údajů:</strong> Pavel Szajter, IČ: 05908795, Orlová.</p>
+            <p><strong>2. Účel:</strong> Vytvoření písně a komunikace.</p>
+            <p><strong>3. Práva:</strong> Máte právo na výmaz a informace.</p>
         </div>
     </div>
-
 
     <div id="exitModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('exitModal')">&times;</span>
             <div id="exit-form-container">
-                <div class="discount-badge">SLEVA 10%</div>
-                <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive;">Nechoďte s prázdnou!</h2>
-                <p style="font-size: 0.9rem;">Teď se to nehodí? Uložte si termín a získejte slevu.</p>
+                <div class="discount-badge">Limitovaná nabídka</div>
+                <h2 style="color: var(--gold); font-family: 'Dancing Script', cursive;">Poslední místa na tento týden!</h2>
+                <p style="font-size: 0.9rem;">Nechcete čekat v pořadníku? Uložte si termín nyní.</p>
                 <form id="exitForm" action="https://formspree.io/f/xgoaengz" method="POST">
                     <input type="text" name="_gotcha" style="display:none">
                     <input type="hidden" name="typ_formulare" value="Exit_Popup">
                     <input type="hidden" name="technicke_info" class="tech-info-input">
                     <div class="form-group"><input type="email" name="email" placeholder="Váš e-mail" required></div>
-                    <div class="form-group" style="display:flex;gap:10px;"><input type="date" name="datum_udalosti" required style="flex:1;"><input type="text" name="nazev_udalosti" placeholder="Co slavíte?" style="flex:1;"></div>
-                    <div class="checkbox-group"><input type="checkbox" name="marketing_souhlas" checked required><span>Souhlasím s připomínkou.</span></div>
-                    <button class="cta-button" type="submit">Uložit a získat slevu</button>
+                    <button class="cta-button" type="submit">Rezervovat termín</button>
                     <div class="loading-spinner" id="spinner-exit"></div>
                 </form>
-                <p style="font-size:0.7rem; color:#888; margin-top:10px; cursor:pointer;" onclick="closeModal('exitModal')">Ne, děkuji.</p>
+                <p style="font-size:0.7rem; color:#888; margin-top:10px; cursor:pointer;" onclick="closeModal('exitModal')">Ne, zariskuji to.</p>
             </div>
             <div id="success-message-exit" class="success-message">
-                <i class="fas fa-check-circle success-icon"></i><h3>Uloženo!</h3><p>Slevu jsme poslali na e-mail.</p>
+                <i class="fas fa-check-circle success-icon"></i><h3>Rezervováno!</h3>
                 <button class="cta-button" onclick="closeModal('exitModal')">Zavřít</button>
             </div>
         </div>
     </div>
 
-    <!-- === LOGIC === -->
+    <!-- SCRIPTS -->
     <script>
-        // --- 1. ANALYTICS & COOKIES ---
+        // --- 1. PARTICLE ANIMATION GENERATOR (Vznášející se noty a srdce) ---
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const icons = ['♪', '♫', '❤', '♩']; // Noty a srdce
+            const particleCount = 15; // Počet částic na obrazovce
+
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    spawnParticle(container, icons);
+                }, i * 2000); // Spawnuj postupně
+            }
+        }
+
+        function spawnParticle(container, icons) {
+            const el = document.createElement('div');
+            el.classList.add('particle');
+            el.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            // Náhodná pozice a velikost
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            el.style.animationDuration = (Math.random() * 10 + 10) + 's'; // Pomalý pohyb 10-20s
+            
+            if(el.innerText === '❤') el.classList.add('heart');
+            
+            container.appendChild(el);
+
+            // Odstranit po skončení animace a vytvořit nový
+            el.addEventListener('animationend', () => {
+                el.remove();
+                spawnParticle(container, icons);
+            });
+        }
+
+        // Spustit částice po načtení
+        document.addEventListener('DOMContentLoaded', createParticles);
+
+
+        // --- 2. ANALYTICS & COOKIES ---
         function loadAnalytics() {
             const script = document.createElement('script');
             script.src = "https://www.googletagmanager.com/gtag/js?id=G-ERPGQVLV5Y";
@@ -507,55 +515,23 @@
         }
         window.onload = checkCookies;
 
-        // --- 2. STICKY CTA LOGIC ---
+        // --- 3. STICKY CTA LOGIC ---
         window.addEventListener('scroll', () => {
-            const heroHeight = document.querySelector('.hero').offsetHeight;
             const scrollPos = window.scrollY;
             const sticky = document.getElementById('stickyCta');
             if (scrollPos > 400 && window.innerWidth < 769) sticky.classList.add('visible');
             else sticky.classList.remove('visible');
         });
 
-        // --- 3. FORM HANDLING & COMPLEX FINGERPRINTING ---
+        // --- 4. FORM HANDLING & FINGERPRINTING ---
         let formSubmittedGlobal = false;
         let exitIntentShown = false;
 
-        // Komplexní sběr dat (pouze pokud je souhlas)
         function getComplexFingerprint() {
             try {
-                const nav = window.navigator;
-                const screen = window.screen;
-                let data = [];
-
-                // Základní identifikace
-                data.push("UA: " + nav.userAgent);
-                data.push("Lang: " + (nav.language || nav.userLanguage));
-                
-                // Obrazovka
-                data.push(`Screen: ${screen.width}x${screen.height}`);
-                data.push(`ColorDepth: ${screen.colorDepth}`);
-                data.push(`Avail: ${screen.availWidth}x${screen.availHeight}`);
-
-                // Hardware & Concurrency
-                if (nav.hardwareConcurrency) data.push(`Cores: ${nav.hardwareConcurrency}`);
-                if (nav.deviceMemory) data.push(`RAM: ${nav.deviceMemory}GB`);
-                
-                // Timezone
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                data.push(`TZ: ${tz}`);
-
-                // Capabilities
-                const touch = ('ontouchstart' in window) || (nav.maxTouchPoints > 0);
-                data.push(`Touch: ${touch}`);
-
-                // Platform & Referrer
-                data.push(`Platform: ${nav.platform}`);
-                data.push(`Ref: ${document.referrer}`);
-
-                return data.join(" | ");
-            } catch (e) {
-                return "Error collecting fingerprint";
-            }
+                const nav = window.navigator; const screen = window.screen;
+                return `UA: ${nav.userAgent} | Screen: ${screen.width}x${screen.height} | Cores: ${nav.hardwareConcurrency || '?'} | RAM: ${nav.deviceMemory || '?'}GB`;
+            } catch { return "Error"; }
         }
 
         async function handleFormSubmit(event, formId, spinnerId, containerId, successId) {
@@ -564,18 +540,8 @@
             const spinner = document.getElementById(spinnerId);
             const button = form.querySelector('button');
             
-            // FINGERPRINT LOGIC
             const techInput = form.querySelector('.tech-info-input');
-            if (techInput) {
-                const consent = localStorage.getItem('cookieConsent');
-                if (consent === 'accepted') {
-                    // Odeslat kompletní otisk
-                    techInput.value = getComplexFingerprint();
-                } else {
-                    // Neodesílat nic nebo jen info o neudělení souhlasu
-                    techInput.value = "GDPR: Souhlas neudělen (No Consent)";
-                }
-            }
+            if (techInput) techInput.value = (localStorage.getItem('cookieConsent') === 'accepted') ? getComplexFingerprint() : "No Consent";
 
             button.style.display = 'none'; spinner.style.display = 'block';
             const data = new FormData(form);
@@ -593,7 +559,7 @@
         document.getElementById('remindForm').addEventListener('submit', (e) => handleFormSubmit(e, 'remindForm', 'spinner-remind', 'form-container-main', 'success-message-main'));
         document.getElementById('exitForm').addEventListener('submit', (e) => handleFormSubmit(e, 'exitForm', 'spinner-exit', 'exit-form-container', 'success-message-exit'));
 
-        // --- 4. TABS & MODALS ---
+        // --- 5. TABS & MODALS ---
         function openTab(id) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -602,7 +568,7 @@
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // --- 5. EXIT INTENT ---
+        // --- 6. EXIT INTENT ---
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 0 && !exitIntentShown && !formSubmittedGlobal) { openModal('exitModal'); exitIntentShown = true; }
         });
